@@ -77,7 +77,7 @@ products:
     source: "audit/2026-11-02/onfive.md — сайт работает, оплата не запущена"
 
   - id: agentscore
-    name: AgentScore
+    name: Agent Skills Pro
     status: Development
     launched: false
     repo: dkuplevatskij/agent-trainer
