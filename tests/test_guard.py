@@ -17,6 +17,10 @@ import tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GUARD = os.path.join(ROOT, ".claude", "hooks", "guard.py")
 PRODUCT = "/home/user/nalog"  # любой путь вне управляющего репозитория
+DECISIONS = os.path.join(ROOT, "company", "decisions", "log.md")
+# Дописывание проверяется по настоящему хвосту журнала решений.
+with open(DECISIONS, encoding="utf-8") as _f:
+    LOG_TAIL = [l for l in _f.read().splitlines() if l.strip()][-1]
 
 
 def bash(cmd, **extra):
@@ -92,11 +96,24 @@ CASES = [
     ("deny", write(os.path.join(ROOT, ".claude/hooks/guard.py")), "правка замка"),
     ("pass", write(os.path.join(ROOT, "reports/daily/2026-11-02.md")), "отчёт AI CEO"),
     ("pass", write("/tmp/draft.md"), "черновик во временной папке"),
-    ("deny", write(os.path.join(ROOT, "company/decisions/log.md"), tool="Edit",
+    ("deny", write(DECISIONS, tool="Edit",
                    ti={"old_string": "старая запись", "new_string": "переписанная запись"}), "переписать журнал решений"),
-    ("pass", write(os.path.join(ROOT, "company/decisions/log.md"), tool="Edit",
-                   ti={"old_string": "конец", "new_string": "конец\nновая запись"}), "дописать журнал решений"),
-    ("deny", write(os.path.join(ROOT, "README.md"), agent_type="cfo"), "директор без прав записи"),
+    ("pass", write(DECISIONS, tool="Edit",
+                   ti={"old_string": LOG_TAIL, "new_string": LOG_TAIL + "\nновая запись"}), "дописать журнал решений"),
+    ("deny", write(os.path.join(ROOT, "README.md"), agent_type="cfo"), "CFO вне своей папки"),
+    ("pass", write(os.path.join(ROOT, "finance/portfolio-finance.md"), agent_type="cfo"), "CFO в finance/"),
+    ("deny", write(os.path.join(ROOT, "portfolio/relta/card.md"), agent_type="cfo"), "CFO не правит карточки"),
+    ("pass", write(os.path.join(ROOT, "portfolio/relta/card.md"), agent_type="head-pm"), "Head PM в portfolio/"),
+    ("deny", write(os.path.join(ROOT, "finance/x.md"), agent_type="head-pm"), "Head PM не пишет в финансы"),
+    ("pass", write(os.path.join(ROOT, "company/data/metrics.md"), agent_type="cdo"), "CDO в company/data/"),
+    ("deny", write(os.path.join(ROOT, "reports/x.md"), agent_type="cto"), "CTO не пишет файлы"),
+    ("deny", write(os.path.join(ROOT, "reports/x.md"), agent_type="cso"), "CSO не пишет файлы"),
+    ("pass", write(os.path.join(ROOT, "tasks/active/T-1.md"), agent_type="chief-of-staff"), "Chief of Staff в tasks/"),
+    ("pass", write(DECISIONS, tool="Edit", agent_type="chief-of-staff",
+                   ti={"old_string": LOG_TAIL, "new_string": LOG_TAIL + "\nD-006"}), "Chief of Staff дописывает журнал"),
+    ("deny", write(DECISIONS, tool="Edit", agent_type="chief-of-staff",
+                   ti={"old_string": "D-001", "new_string": "D-001 изменено"}), "Chief of Staff не переписывает журнал"),
+    ("pass", write(os.path.join(ROOT, "approvals/pending/APR-1.md"), agent_type="chief-of-staff"), "черновик согласования"),
     ("deny", write(os.path.join(ROOT, "approvals/approved/APR-1.md"), agent_type="chief-of-staff"),
      "субагент не фиксирует решение собственника"),
     ("pass", write(os.path.join(ROOT, "approvals/approved/APR-1.md")), "AI CEO фиксирует решение со слов собственника"),
