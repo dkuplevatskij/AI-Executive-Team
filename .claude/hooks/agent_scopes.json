@@ -4,6 +4,6 @@
     "chief-of-staff": ["tasks/", "reports/daily/", "reports/weekly/", "approvals/pending/", "company/decisions/"],
     "cfo": ["finance/"],
     "cdo": ["company/data/"],
-    "portfolio-pm": ["portfolio/"]
+    "head-pm": ["portfolio/"]
   }
 }
