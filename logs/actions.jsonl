@@ -6,3 +6,23 @@
 {"ts": "2026-11-02T13:58:06+00:00", "who": "ceo", "tool": "Write", "target": "reports/test-allowed.md", "decision": "done"}
 {"ts": "2026-11-02T13:58:10+00:00", "who": "general-purpose", "tool": "Write", "target": "README-SUB.md", "decision": "blocked", "reason": "у агента «general-purpose» нет права записи файлов"}
 {"ts": "2026-11-02T13:58:15+00:00", "who": "ceo", "tool": "Agent", "target": "general-purpose: Subagent Write test", "decision": "done"}
+{"ts": "2026-11-02T14:33:05+00:00", "who": "ceo", "tool": "Agent", "target": "chief-of-staff: Тест A chief-of-staff", "decision": "done"}
+{"ts": "2026-11-02T14:33:06+00:00", "who": "ceo", "tool": "Agent", "target": "cfo: Тест A cfo", "decision": "done"}
+{"ts": "2026-11-02T14:33:07+00:00", "who": "ceo", "tool": "Agent", "target": "cto: Тест A cto", "decision": "done"}
+{"ts": "2026-11-02T14:33:08+00:00", "who": "ceo", "tool": "Agent", "target": "cpo: Тест A cpo", "decision": "done"}
+{"ts": "2026-11-02T14:33:09+00:00", "who": "ceo", "tool": "Agent", "target": "cro: Тест A cro", "decision": "done"}
+{"ts": "2026-11-02T14:33:10+00:00", "who": "ceo", "tool": "Agent", "target": "cmo: Тест A cmo", "decision": "done"}
+{"ts": "2026-11-02T14:33:11+00:00", "who": "ceo", "tool": "Agent", "target": "coo: Тест A coo", "decision": "done"}
+{"ts": "2026-11-02T14:33:12+00:00", "who": "ceo", "tool": "Agent", "target": "cso: Тест A cso", "decision": "done"}
+{"ts": "2026-11-02T14:33:13+00:00", "who": "ceo", "tool": "Agent", "target": "ciso: Тест A ciso", "decision": "done"}
+{"ts": "2026-11-02T14:33:14+00:00", "who": "ceo", "tool": "Agent", "target": "cdo: Тест A cdo", "decision": "done"}
+{"ts": "2026-11-02T14:33:15+00:00", "who": "ceo", "tool": "Agent", "target": "product-manager: Тест A product-manager", "decision": "done"}
+{"ts": "2026-11-02T14:33:16+00:00", "who": "ceo", "tool": "Agent", "target": "cto: Тест B1 cto PR list", "decision": "done"}
+{"ts": "2026-11-02T14:33:18+00:00", "who": "ceo", "tool": "Agent", "target": "cfo: Тест B3 cfo write", "decision": "done"}
+{"ts": "2026-11-02T14:33:20+00:00", "who": "cfo", "tool": "Write", "target": "portfolio/test-cfo.md", "decision": "blocked", "reason": "агент «cfo» пишет только в: finance/"}
+{"ts": "2026-11-02T14:33:38+00:00", "who": "chief-of-staff", "tool": "Write", "target": "tasks/active/T-20261102-99-test.md", "decision": "done"}
+{"ts": "2026-11-02T14:33:39+00:00", "who": "ceo", "tool": "Agent", "target": "chief-of-staff: Тест B2 создать задачу", "decision": "done"}
+{"ts": "2026-11-02T14:33:42+00:00", "who": "ceo", "tool": "Bash", "target": "head -30 tasks/active/T-20261102-99-test.md; ls portfolio/test-cfo.md 2>&1; grep -l '\"mcp__github' .claude/settings.json; grep -n github .mcp.json 2>/dev/null | head", "decision": "done"}
+{"ts": "2026-11-02T14:35:26+00:00", "who": "portfolio-pm", "tool": "Write", "target": "portfolio/test-pm.md", "decision": "done"}
+{"ts": "2026-11-02T14:35:27+00:00", "who": "portfolio-pm", "tool": "Write", "target": "finance/test-pm.md", "decision": "blocked", "reason": "агент «portfolio-pm» пишет только в: portfolio/"}
+{"ts": "2026-11-02T14:35:29+00:00", "who": "ceo", "tool": "Agent", "target": "portfolio-pm: Тест прав portfolio-pm", "decision": "done"}
