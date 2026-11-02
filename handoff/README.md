@@ -27,5 +27,10 @@
 | Claude Code PRO | `cc-pro/2026-11-02-tech.md` | 3 | 2026-11-02 | — | — |
 | Brokers City | `brokers-city/2026-11-02-tech.md` | 4 | 2026-11-02 | — | — |
 | Общая инфраструктура | `_shared/2026-11-02-infra.md` | 3 | 2026-11-02 | — | — |
+| NAlog — витрина экосистемы | `nalog/2026-11-02-ecosystem.md` | 5 | 2026-11-02 | — | — |
+| RELTA — экосистема и ReXeeD | `relta/2026-11-02-ecosystem.md` | 2 | 2026-11-02 | — | — |
+| Agent Hunter — экосистема и ReXeeD | `agent-hunter/2026-11-02-ecosystem.md` | 2 | 2026-11-02 | — | — |
+| Agent Skills Pro — лендинг и ReXeeD | `agentscore/2026-11-02-ecosystem.md` | 2 | 2026-11-02 | — | — |
+| Подпись ReXeeD: OnFive, CC PRO, Brokers City | `_shared/2026-11-02-rexeed-credit.md` | 1 | 2026-11-02 | — | — |
 
 Шаблон задания — `templates/dev-task.md`.

@@ -118,7 +118,7 @@ def build_handoff(ref):
         if len(cells) == 6 and cells[1].startswith("`") and cells[2].isdigit():
             path = "handoff/" + cells[1].strip("`")
             pid = cells[1].strip("`").split("/")[0]
-            counts[pid] = int(cells[2])
+            counts[pid] = counts.get(pid, 0) + int(cells[2])  # у продукта может быть несколько файлов заданий
             rows.append({"product": cells[0], "tasks": int(cells[2]), "created": cells[3],
                          "sent": cells[4], "done": cells[5], "link": link(ref, path)})
     return rows, counts
@@ -189,6 +189,11 @@ def build_approvals(ref):
         fm = frontmatter(text)
         rows.append({"id": fm.get("id", ""), "title": first_heading(text), "status": fm.get("status", ""),
                      "created": fm.get("created", ""), "product": fm.get("product", ""), "link": link(ref, rel)})
+    if not rows:
+        # Дашборд не читает пустой набор («no rows»), поэтому — одна служебная строка-факт.
+        # Счётчик «ждут решения» считает только status == PENDING, её не учитывает.
+        rows.append({"id": "—", "title": "Карточек согласования нет", "status": "НЕТ",
+                     "created": datetime.date.today().isoformat(), "product": "—", "link": link(ref, "approvals/README.md")})
     return rows
 
 
