@@ -20,7 +20,7 @@
 3. Обновить у соответствующих наборов данных `source.url` и `updated` (`ArtifactData`, `update`
    документа `datasets/<id>` с `if_version`).
 4. Если менялась страница — записать `dashboard/index.html` в документ `files/index.html` (`{text}`).
-Наборы данных: `feed`, `portfolio`, `tasks`, `approvals`, `handoff`, `activity`.
+Наборы данных: `feed`, `portfolio`, `tasks`, `approvals`, `questions` (открытые вопросы к собственнику), `handoff`, `activity`.
 
 ## Уведомления в Telegram
 Отправляет GitHub Actions — `.github/workflows/telegram-notify.yml` (скрипт `tools/notify_telegram.py`):

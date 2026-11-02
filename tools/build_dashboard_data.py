@@ -6,6 +6,7 @@
   feed.json       — лента: отчёты, материалы к решениям, аудиты, задания для сессий, решения собственника
   tasks.json      — управленческие задачи (tasks/)
   approvals.json  — карточки согласования (approvals/)
+  questions.json  — открытые вопросы к собственнику из материалов к решениям
   handoff.json    — реестр заданий для сессий продуктов (handoff/README.md)
   activity.json   — журнал действий агентов по дням (logs/actions.jsonl)
 
@@ -111,6 +112,8 @@ def build_portfolio(ref, handoff_counts):
 
 
 def build_handoff(ref):
+    import yaml
+    names = {p["id"]: p["name"] for p in yaml.safe_load(read("portfolio/registry.yaml"))["products"]}
     rows, counts = [], {}
     text = read("handoff/README.md")
     for line in text.splitlines():
@@ -119,8 +122,9 @@ def build_handoff(ref):
             path = "handoff/" + cells[1].strip("`")
             pid = cells[1].strip("`").split("/")[0]
             counts[pid] = counts.get(pid, 0) + int(cells[2])  # у продукта может быть несколько файлов заданий
-            rows.append({"product": cells[0], "tasks": int(cells[2]), "created": cells[3],
-                         "sent": cells[4], "done": cells[5], "link": link(ref, path)})
+            # group — продукт из реестра (для графика по продуктам); общие задания — «Общее».
+            rows.append({"product": cells[0], "group": names.get(pid, "Общее"), "tasks": int(cells[2]),
+                         "created": cells[3], "sent": cells[4], "done": cells[5], "link": link(ref, path)})
     return rows, counts
 
 
@@ -163,6 +167,28 @@ def build_feed(ref):
     for i, r in enumerate(rows):
         r["n"] = i + 1
         r.pop("seq", None)
+    return rows
+
+
+def build_questions(ref):
+    """Открытые вопросы к собственнику — пункты раздела «Что нужно от собственника» материалов к решениям.
+
+    Пункт с пометкой «[решено: …]» уже закрыт и не показывается.
+    """
+    rows = []
+    for p in sorted(glob.glob(os.path.join(ROOT, "reports", "decisions", "*.md"))):
+        rel = os.path.relpath(p, ROOT)
+        text = read(rel)
+        body = section(text, ["Что нужно от собственника"])
+        topic = re.sub(r"^Решение:\s*", "", first_heading(text))
+        for num, item in re.findall(r"^(\d+)\.\s+(.+?)(?=^\d+\.\s|\Z)", body, re.M | re.S):
+            if "[решено" in item:
+                continue
+            m = re.match(r"\*\*([^*]+?):?\*\*:?\s*(.*)", item.strip(), re.S)
+            head, rest = (m.group(1).rstrip(":"), m.group(2)) if m else ("", item)
+            rows.append({"id": "%s-%s" % (os.path.basename(p)[:-3], num), "date": date_of(rel, text),
+                         "topic": topic, "head": plain(head, 80), "question": plain(rest, 260),
+                         "link": link(ref, rel)})
     return rows
 
 
@@ -226,6 +252,7 @@ def main():
         "feed": build_feed(a.ref),
         "tasks": build_tasks(a.ref),
         "approvals": build_approvals(a.ref),
+        "questions": build_questions(a.ref),
         "handoff": handoff,
         "activity": build_activity(),
     }
