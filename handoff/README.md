@@ -21,7 +21,7 @@
 | Agent Hunter | `agent-hunter/2026-11-02-tech.md` | 8 | 2026-11-02 | — | — |
 | RELTA | `relta/2026-11-02-tech.md` | 8 | 2026-11-02 | — | — |
 | NAlog | `nalog/2026-11-02-tech.md` | 7 | 2026-11-02 | — | — |
-| OnFive | `onfive/2026-11-02-tech.md` | 4 | 2026-11-02 | — | — |
+| OnFive | `onfive/2026-11-02-tech.md` | 5 | 2026-11-02 | — | — |
 | Агроконтур | `agrokontur/2026-11-02-tech.md` | 5 | 2026-11-02 | — | — |
 | Agent Skills Pro | `agentscore/2026-11-02-tech.md` | 5 | 2026-11-02 | — | — |
 | Claude Code PRO | `cc-pro/2026-11-02-tech.md` | 3 | 2026-11-02 | — | — |
