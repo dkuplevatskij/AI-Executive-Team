@@ -1,0 +1,231 @@
+<meta name="dash-one-writer">
+<style>
+  #dash-root { --dash-gutter: var(--cds-pad-lg); }
+  .aet { font-family: var(--font-anthropic-sans); display: flex; flex-direction: column; gap: var(--cds-gap-lg); max-width: 1280px; margin-inline: auto; }
+  .aet-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+  .aet-head p { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); }
+  .aet-head .aet-take { color: var(--color-fg); }
+  .aet-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)); gap: var(--cds-gap-md); }
+  .aet-tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; }
+  .aet-tile .lbl { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .aet-tile .num { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; }
+  .aet-tile.warn .num { color: var(--color-warn); }
+  .aet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: var(--cds-gap-md); }
+  .aet-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
+  .aet-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .aet-card .note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; }
+  .aet-bar { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; justify-content: space-between; }
+  .aet-bar select { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-radius: var(--cds-radius); border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); }
+  .aet-scroll { overflow: auto; max-height: 34rem; }
+  .aet-scroll.short { max-height: 22rem; }
+  .aet table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .aet th { text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); position: sticky; top: 0; background: var(--color-panel); }
+  .aet td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .aet td.num, .aet th.num { text-align: right; }
+  .aet td.sum { color: var(--color-fg-muted); min-width: 16rem; }
+  .aet td.title { min-width: 14rem; font-weight: var(--cds-font-weight-medium); }
+  .aet a { color: inherit; text-decoration: underline; text-decoration-color: var(--color-border-line); text-underline-offset: 2px; }
+  .aet a:hover { text-decoration-color: currentColor; }
+  .aet .pill { display: inline-block; padding: 0 var(--cds-pad-xs); border-radius: var(--cds-radius); border: 1px solid var(--color-border-line); white-space: nowrap; }
+  .aet .pill.k-dec { color: var(--color-warn); border-color: currentColor; }
+  .aet .pill.k-mat { color: var(--color-ok); border-color: currentColor; }
+  .aet .bad { color: var(--color-bad); }
+  .aet .empty { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin: 0; }
+  [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  [data-dash-source-state=empty] { color: transparent; }
+</style>
+
+<div class="aet">
+  <header class="aet-head" id="top">
+    <h1>AI Executive Team</h1>
+    <p class="aet-take">Ждут вашего решения: <b data-draw="t-pending" data-source="kpi" data-field="value" data-where="metric=pending">—</b> карточек согласования; задач команды в работе: <b data-draw="t-tasks" data-source="kpi" data-field="value" data-where="metric=tasks">—</b>. Платящих клиентов в портфеле: <b data-draw="t-paying" data-source="kpi" data-field="value" data-where="metric=paying">—</b>.</p>
+    <p>Всё, что делает команда директоров: отчёты, материалы к решениям, задачи, задания для сессий продуктов и журнал действий. Источник — репозиторий ai-executive-team; полный текст каждого документа открывается по ссылке.</p>
+  </header>
+
+  <section class="aet-tiles" aria-label="Сводка">
+    <div class="aet-tile"><span class="lbl">Продуктов в портфеле</span><span class="num" data-draw="k-products" data-source="kpi" data-field="value" data-where="metric=products">—</span></div>
+    <div class="aet-tile"><span class="lbl">Платящих клиентов</span><span class="num" data-draw="k-paying" data-source="kpi" data-field="value" data-where="metric=paying">—</span></div>
+    <div class="aet-tile warn"><span class="lbl">Ждут вашего решения</span><span class="num" data-draw="k-pending" data-source="kpi" data-field="value" data-where="metric=pending">—</span></div>
+    <div class="aet-tile"><span class="lbl">Задач в работе</span><span class="num" data-draw="k-tasks" data-source="kpi" data-field="value" data-where="metric=tasks">—</span></div>
+    <div class="aet-tile"><span class="lbl">Задач в заданиях для сессий</span><span class="num" data-draw="k-handoff" data-source="kpi" data-field="value" data-where="metric=handoff">—</span></div>
+    <div class="aet-tile"><span class="lbl">Действий остановлено замком</span><span class="num" data-draw="k-blocked" data-source="kpi" data-field="value" data-where="metric=blocked">—</span></div>
+  </section>
+
+  <section class="aet-card" id="feed">
+    <div class="aet-bar">
+      <h2>Лента команды</h2>
+      <label class="note">Показать
+        <select id="aet-kind" aria-label="Вид записей">
+          <option value="">все записи</option>
+          <option value="Решение собственника">решения собственника</option>
+          <option value="Материал к решению">материалы к решению</option>
+          <option value="Отчёт">отчёты</option>
+          <option value="Аудит">аудиты</option>
+          <option value="Задание для сессии">задания для сессий</option>
+        </select>
+      </label>
+    </div>
+    <p class="note">Новые записи сверху. Название — ссылка на полный документ в GitHub.</p>
+    <div class="aet-scroll">
+      <table data-source="feed" data-row-key="n">
+        <thead><tr><th data-field="n" class="num">№</th><th data-field="date">Дата</th><th data-field="kind">Вид</th><th data-field="title">Название</th><th data-field="author">Кто готовил</th><th data-field="summary">Суть</th></tr></thead>
+        <tbody data-draw="feed"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="aet-grid">
+    <section class="aet-card" id="portfolio">
+      <h2>Портфель</h2>
+      <p class="note">Статус из реестра, выручка и платящие — из карточек продуктов.</p>
+      <div class="aet-scroll short">
+        <table data-source="portfolio" data-row-key="product">
+          <thead><tr><th data-field="product">Продукт</th><th data-field="status">Статус</th><th data-field="launched">Запущен</th><th data-field="revenue">Выручка</th><th data-field="paying">Платящих</th><th data-field="handoff" class="num">Задач для сессии</th></tr></thead>
+          <tbody data-draw="portfolio"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="aet-card" id="handoff">
+      <h2>Задания для сессий продуктов</h2>
+      <p class="note">Вы пересылаете файл в сессию проекта; когда сделано — скажите AI CEO, статус обновится.</p>
+      <div class="aet-scroll short">
+        <table data-source="handoff" data-row-key="product">
+          <thead><tr><th data-field="product">Продукт</th><th data-field="tasks" class="num">Задач</th><th data-field="created">Создано</th><th data-field="sent">Отправлено</th><th data-field="done">Выполнено</th></tr></thead>
+          <tbody data-draw="handoff"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="aet-card" id="tasks">
+      <h2>Задачи команды</h2>
+      <p class="note">Поручения собственника и задачи директоров; просроченные выделены.</p>
+      <div class="aet-scroll short">
+        <table data-source="tasks" data-row-key="id">
+          <thead><tr><th data-field="id">Номер</th><th data-field="title">Задача</th><th data-field="owner">Владелец</th><th data-field="due">Срок</th><th data-field="status">Статус</th></tr></thead>
+          <tbody data-draw="tasks"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="aet-card" id="approvals">
+      <h2>Согласования</h2>
+      <p class="note">Действия, которые команда может выполнить только после вашего «да».</p>
+      <p class="empty" id="aet-no-approvals" hidden>Карточек согласования нет.</p>
+      <div class="aet-scroll short">
+        <table data-source="approvals" data-row-key="id">
+          <thead><tr><th data-field="id">Номер</th><th data-field="title">Действие</th><th data-field="product">Продукт</th><th data-field="created">Создано</th><th data-field="status">Статус</th></tr></thead>
+          <tbody data-draw="approvals"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="aet-card" id="activity">
+      <h2>Действия агентов</h2>
+      <p class="note">Из автоматического журнала: выполнено, остановлено замком, отправлено вам на подтверждение.</p>
+      <div class="aet-scroll short">
+        <table data-source="activity" data-row-key="key">
+          <thead><tr><th data-field="key">День и агент</th><th data-field="done" class="num">Выполнено</th><th data-field="blocked" class="num">Остановлено</th><th data-field="asked" class="num">На подтверждение</th></tr></thead>
+          <tbody data-draw="activity"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  dash.calc('kpi', {
+    inputs: ['portfolio', 'tasks', 'approvals', 'handoff', 'feed', 'activity'],
+    title: 'Сводка команды',
+    description: 'Счётчики по реестру, карточкам, задачам, согласованиям, заданиям, ленте и журналу действий.',
+    fn: (portfolio, tasks, approvals, handoff, feed, activity) => {
+      const paid = portfolio.map((r) => parseInt(String(r.paying), 10));
+      return [
+        { metric: 'products', value: portfolio.length },
+        { metric: 'paying', value: paid.some(Number.isNaN) ? null : paid.reduce((s, n) => s + n, 0) },
+        { metric: 'pending', value: approvals.filter((r) => r.status === 'PENDING').length },
+        { metric: 'tasks', value: tasks.filter((r) => r.status === 'active').length },
+        { metric: 'handoff', value: handoff.reduce((s, r) => s + Number(r.tasks), 0) },
+        { metric: 'blocked', value: activity.reduce((s, r) => s + Number(r.blocked), 0) },
+      ];
+    },
+  });
+
+  const kpi = (metric) => (el) => {
+    const d = dash.data('kpi');
+    const row = d.status === 'ok' ? d.data.find((r) => r.metric === metric) : null;
+    el.textContent = row && row.value !== null ? d3.format(',')(row.value).replace(/,/g, ' ') : (d.status === 'ok' ? 'нет данных' : '—');
+  };
+  [['k-products', 'products'], ['k-paying', 'paying'], ['k-pending', 'pending'], ['k-tasks', 'tasks'], ['k-handoff', 'handoff'],
+   ['k-blocked', 'blocked'], ['t-pending', 'pending'], ['t-tasks', 'tasks'], ['t-paying', 'paying']]
+    .forEach(([name, metric]) => dash.draw(name, kpi(metric)));
+
+  const safeLink = (href) => (typeof href === 'string' && href.startsWith('https://github.com/dkuplevatskij/')) ? href : null;
+  const cell = (tr, text, cls) => { const td = tr.insertCell(); td.textContent = text == null ? '' : String(text); if (cls) td.className = cls; return td; };
+  const linkCell = (tr, text, href, cls) => {
+    const td = tr.insertCell(); if (cls) td.className = cls;
+    const url = safeLink(href);
+    if (url) { const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = text; td.appendChild(a); }
+    else td.textContent = text;
+    return td;
+  };
+  const rowsOf = (id) => { const d = dash.data(id); return d.status === 'ok' ? d.data : null; };
+
+  const kindClass = { 'Решение собственника': 'k-dec', 'Материал к решению': 'k-mat' };
+  dash.draw('feed', (tbody) => {
+    tbody.replaceChildren();
+    const rows = rowsOf('feed'); if (!rows) return;
+    const sel = document.querySelector('#aet-kind');
+    const kind = sel ? sel.value : '';
+    rows.filter((r) => !kind || r.kind === kind).forEach((r) => {
+      const tr = tbody.insertRow(); tr.dataset.key = String(r.n);
+      cell(tr, r.n, 'num'); cell(tr, r.date);
+      const k = tr.insertCell(); const pill = document.createElement('span'); pill.className = 'pill ' + (kindClass[r.kind] || ''); pill.textContent = r.kind; k.appendChild(pill);
+      linkCell(tr, r.title, r.link, 'title'); cell(tr, r.author); cell(tr, r.summary, 'sum');
+    });
+  });
+  document.querySelectorAll('#aet-kind').forEach((s) => s.addEventListener('change', () => dash.draw('feed')));
+
+  dash.draw('portfolio', (tbody) => {
+    tbody.replaceChildren();
+    (rowsOf('portfolio') || []).forEach((r) => {
+      const tr = tbody.insertRow(); tr.dataset.key = r.product;
+      linkCell(tr, r.product, r.card); cell(tr, r.status); cell(tr, r.launched); cell(tr, r.revenue); cell(tr, r.paying); cell(tr, r.handoff, 'num');
+    });
+  });
+
+  dash.draw('handoff', (tbody) => {
+    tbody.replaceChildren();
+    (rowsOf('handoff') || []).forEach((r) => {
+      const tr = tbody.insertRow(); tr.dataset.key = r.product;
+      linkCell(tr, r.product, r.link); cell(tr, r.tasks, 'num'); cell(tr, r.created); cell(tr, r.sent); cell(tr, r.done);
+    });
+  });
+
+  dash.draw('tasks', (tbody) => {
+    tbody.replaceChildren();
+    (rowsOf('tasks') || []).forEach((r) => {
+      const tr = tbody.insertRow(); tr.dataset.key = r.id;
+      cell(tr, r.id); linkCell(tr, r.title, r.link, 'title'); cell(tr, r.owner);
+      cell(tr, r.due, r.overdue === 'да' ? 'bad' : ''); cell(tr, r.status);
+    });
+  });
+
+  dash.draw('approvals', (tbody) => {
+    tbody.replaceChildren();
+    const rows = rowsOf('approvals');
+    document.querySelectorAll('#aet-no-approvals').forEach((p) => { p.hidden = !(rows && rows.length === 0); });
+    (rows || []).forEach((r) => {
+      const tr = tbody.insertRow(); tr.dataset.key = r.id;
+      cell(tr, r.id); linkCell(tr, r.title, r.link, 'title'); cell(tr, r.product); cell(tr, r.created); cell(tr, r.status);
+    });
+  });
+
+  dash.draw('activity', (tbody) => {
+    tbody.replaceChildren();
+    (rowsOf('activity') || []).forEach((r) => {
+      const tr = tbody.insertRow(); tr.dataset.key = r.key;
+      cell(tr, r.key); cell(tr, r.done, 'num'); cell(tr, r.blocked, r.blocked > 0 ? 'num bad' : 'num'); cell(tr, r.asked, 'num');
+    });
+  });
+</script>
