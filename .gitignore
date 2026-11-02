@@ -1,0 +1,12 @@
+# Секреты не хранятся в репозитории
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Личные настройки Claude Code каждого пользователя
+.claude/settings.local.json
+# Мусор
+__pycache__/
+*.pyc
+.DS_Store
