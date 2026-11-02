@@ -33,5 +33,6 @@
 | Agent Skills Pro — лендинг и ReXeeD | `agentscore/2026-11-02-ecosystem.md` | 2 | 2026-11-02 | — | — |
 | Подпись ReXeeD: OnFive, CC PRO, Brokers City | `_shared/2026-11-02-rexeed-credit.md` | 1 | 2026-11-02 | — | — |
 | Agent Skills Pro — лендинг A (после решения собственника) | `agentscore/2026-11-02-landing.md` | 7 | 2026-11-02 | — | — |
+| Brokers City — точка входа для агентов (план) | `brokers-city/2026-11-02-ecosystem.md` | 1 | 2026-11-02 | — | — |
 
 Шаблон задания — `templates/dev-task.md`.
