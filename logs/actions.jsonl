@@ -1,0 +1,8 @@
+{"ts": "2026-11-02T13:58:02+00:00", "who": "ceo", "tool": "Bash", "target": "git push origin main", "decision": "blocked", "reason": "запись в основную ветку main/master — только через PR, слияние делает собственник"}
+{"ts": "2026-11-02T13:58:03+00:00", "who": "ceo", "tool": "Bash", "target": "ssh test@localhost true", "decision": "blocked", "reason": "доступ к серверам — изменение инфраструктуры (уровень 3)"}
+{"ts": "2026-11-02T13:58:03+00:00", "who": "ceo", "tool": "Bash", "target": "rm -rf tests/tmp-dummy", "decision": "blocked", "reason": "удаление файлов (rm -r / rm -f)"}
+{"ts": "2026-11-02T13:58:04+00:00", "who": "ceo", "tool": "Write", "target": "/home/user/aet-fake-product/NOTE.md", "decision": "blocked", "reason": "запись за пределами управляющего репозитория — репозитории продуктов меняются только через согласованный PR"}
+{"ts": "2026-11-02T13:58:05+00:00", "who": "ceo", "tool": "Bash", "target": "sed -i s/deny/allow/ .claude/settings.json", "decision": "blocked", "reason": "изменение замков и прав (.claude/settings.json, .claude/hooks) — только собственник"}
+{"ts": "2026-11-02T13:58:06+00:00", "who": "ceo", "tool": "Write", "target": "reports/test-allowed.md", "decision": "done"}
+{"ts": "2026-11-02T13:58:10+00:00", "who": "general-purpose", "tool": "Write", "target": "README-SUB.md", "decision": "blocked", "reason": "у агента «general-purpose» нет права записи файлов"}
+{"ts": "2026-11-02T13:58:15+00:00", "who": "ceo", "tool": "Agent", "target": "general-purpose: Subagent Write test", "decision": "done"}
