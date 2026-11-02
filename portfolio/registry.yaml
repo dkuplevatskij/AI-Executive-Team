@@ -1,0 +1,113 @@
+# Реестр продуктов портфеля.
+# Единственный перечень продуктов, с которым работает команда. Добавление продукта — только
+# через /new-product-onboarding (портфель не привязан к числу продуктов: новый продукт = новая
+# запись и новая папка portfolio/<id>/, агенты и правила не меняются).
+#
+# Поля:
+#   id       — латиница, совпадает с именем папки portfolio/<id>/
+#   status   — Development / Beta / Production / Paused / Archived (статусы ТЗ)
+#   launched — запущен ли продукт для пользователей (true/false), по решению собственника D-001
+#   repo     — owner/name на GitHub;  local — имя папки клона в облачной сессии (/home/user/<local>)
+#   url      — боевой адрес, если есть
+#   card     — карточка продукта;  pm — ответственный агент
+#   source   — на чём основан статус
+
+version: 1
+updated: 2026-11-02
+
+products:
+  - id: agrokontur
+    name: Агроконтур
+    status: Beta
+    launched: true
+    repo: dkuplevatskij/LogisDoc-Pro
+    local: LogisDoc-Pro
+    url: https://agrokontur.ru
+    card: portfolio/agrokontur/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/agrokontur.md — выложен, данные на проде собственник признал тестовыми"
+
+  - id: relta
+    name: RELTA
+    status: Production
+    launched: true
+    repo: dkuplevatskij/ai-mentor
+    local: ai-mentor
+    url: https://relta.tech
+    card: portfolio/relta/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/relta.md — автодеплой, мониторинг живого контейнера"
+
+  - id: agent-hunter
+    name: Agent Hunter
+    status: Production
+    launched: true
+    repo: dkuplevatskij/ai-recruit
+    local: ai-recruit
+    url: https://agent-hunter.ru
+    card: portfolio/agent-hunter/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/agent-hunter.md — автодеплой, ошибки живого контейнера в issues"
+
+  - id: nalog
+    name: NAlog
+    status: Production
+    launched: true
+    repo: dkuplevatskij/nalog
+    local: nalog
+    url: https://ainalog.pro
+    card: portfolio/nalog/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/nalog.md — бесплатная версия в проде; www.ainalog.pro отдаёт Vercel (sites-check.md)"
+
+  - id: onfive
+    name: OnFive
+    status: Production
+    launched: true
+    repo: dkuplevatskij/onfive
+    local: onfive
+    url: https://onfive.pro
+    card: portfolio/onfive/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/onfive.md — сайт работает, оплата не запущена"
+
+  - id: agentscore
+    name: AgentScore
+    status: Development
+    launched: false
+    repo: dkuplevatskij/agent-trainer
+    local: agent-trainer
+    url: null
+    card: portfolio/agentscore/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/agentscore.md — сделаны этапы 0–1 из 0–6 по ТЗ, деплоя нет"
+
+  - id: cc-pro
+    name: Claude Code PRO
+    status: Development
+    launched: false
+    repo: dkuplevatskij/claude-code-pro-trainer
+    local: claude-code-pro-trainer
+    url: null
+    card: portfolio/cc-pro/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/claude-code-pro.md — сделаны шаги 0–4 из 0–11 по docs/PLAN.md, хостинга нет"
+
+  - id: brokers-city
+    name: Brokers City
+    status: Development
+    launched: false
+    repo: dkuplevatskij/DK
+    local: DK
+    url: null
+    card: portfolio/brokers-city/card.md
+    pm: head-pm
+    added: 2026-11-02
+    source: "audit/2026-11-02/brokers-city.md — MVP закрыт, хостинга нет, работы нет с 08.10.2026"
