@@ -173,7 +173,8 @@ def build_feed(ref):
 def build_questions(ref):
     """Открытые вопросы к собственнику — пункты раздела «Что нужно от собственника» материалов к решениям.
 
-    Пункт с пометкой «[решено: …]» уже закрыт и не показывается.
+    Пункт с пометкой «[решено: …]» уже закрыт, с пометкой «[перенесено: …]» — разбирается в другом материале;
+    такие пункты не показываются.
     """
     rows = []
     for p in sorted(glob.glob(os.path.join(ROOT, "reports", "decisions", "*.md"))):
@@ -182,7 +183,7 @@ def build_questions(ref):
         body = section(text, ["Что нужно от собственника"])
         topic = re.sub(r"^Решение:\s*", "", first_heading(text))
         for num, item in re.findall(r"^(\d+)\.\s+(.+?)(?=^\d+\.\s|\Z)", body, re.M | re.S):
-            if "[решено" in item:
+            if "[решено" in item or "[перенесено" in item:
                 continue
             m = re.match(r"\*\*([^*]+?):?\*\*:?\s*(.*)", item.strip(), re.S)
             head, rest = (m.group(1).rstrip(":"), m.group(2)) if m else ("", item)
