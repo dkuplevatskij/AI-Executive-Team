@@ -34,5 +34,6 @@
 | Подпись ReXeeD: OnFive, CC PRO, Brokers City | `_shared/2026-11-02-rexeed-credit.md` | 1 | 2026-11-02 | — | — |
 | Agent Skills Pro — лендинг A (после решения собственника) | `agentscore/2026-11-02-landing.md` | 7 | 2026-11-02 | — | — |
 | Brokers City — точка входа для агентов (план) | `brokers-city/2026-11-02-ecosystem.md` | 1 | 2026-11-02 | — | — |
+| NAlog — оплата PDF и AI-разбора (190 / 290 ₽) | `nalog/2026-11-03-payments.md` | 6 | 2026-11-03 | — | — |
 
 Шаблон задания — `templates/dev-task.md`.
