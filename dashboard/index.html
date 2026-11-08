@@ -606,9 +606,14 @@
     const launched = (r) => r.launched === 'да';
     const lead = rows.slice().sort((a, b) => String(st(b.id).last_date).localeCompare(String(st(a.id).last_date)))[0];
     const order = [lead, ...rows.filter((r) => r !== lead && launched(r)), ...rows.filter((r) => r !== lead && !launched(r))];
+    // Ряды по 4 клетки без пустот: крупная — 4, широкая — 2, малая — 1, плюс плитка стадий; недостающее — расширяем малые с конца.
+    const wide = new Set(order.filter((r) => r !== lead && launched(r)));
+    const small = order.filter((r) => r !== lead && !launched(r));
+    let rest = (4 - ((4 + 2 * wide.size + small.length + 1) % 4)) % 4;
+    for (let i = small.length - 1; i >= 0 && rest > 0; i--, rest--) wide.add(small[i]);
     order.forEach((r) => {
       const s = st(r.id), big = r === lead;
-      const c = el('button', 'bx pj' + (big ? ' big w2 h2' : launched(r) ? ' w2' : ''));
+      const c = el('button', 'bx pj' + (big ? ' big w2 h2' : wide.has(r) ? ' w2' : ''));
       c.type = 'button'; c.style.setProperty('--k', productColor(r.product));
       c.setAttribute('aria-label', `${r.product}: открыть страницу проекта`);
       const top = el('span', 'pj-top'); const pill = el('span', 'aet-pill'); statusPill(pill, r.status);
@@ -620,7 +625,7 @@
       stat('платящих', Number.isNaN(paid) ? 'нет данных' : fmt(paid));
       stat('задач для сессии', fmt(r.handoff));
       stat('вопросов к вам', fmt(s.questions || 0));
-      if (big || launched(r)) stat('записей в ленте', fmt(s.feed || 0));
+      if (big || wide.has(r)) stat('записей в ленте', fmt(s.feed || 0));
       c.appendChild(stats2);
       if (s.last_title) c.appendChild(el('span', 'pj-last', `${s.last_date} · ${s.last_title}`));
       c.appendChild(el('span', 'pj-go', 'Подробнее →'));
