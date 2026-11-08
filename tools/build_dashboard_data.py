@@ -2,7 +2,7 @@
 """Данные для дашборда AI Executive Team — без ИИ, только из файлов репозитория.
 
 Собирает JSON-таблицы, которые показывает дашборд (Claude Artifact):
-  portfolio.json  — продукты из реестра и ключевые поля карточек
+  portfolio.json  — продукты из реестра и поля карточек (главная страница и страница проекта)
   feed.json       — лента: отчёты, материалы к решениям, аудиты, задания для сессий, решения собственника
   tasks.json      — управленческие задачи (tasks/)
   approvals.json  — карточки согласования (approvals/)
@@ -87,11 +87,35 @@ def date_of(path, text):
     return m.group(1) if m else ""
 
 
-def build_portfolio(ref, handoff_counts):
+# Поля карточки (номер → столбец), которые показывает страница проекта.
+CARD_FIELDS = {4: "description", 5: "audience", 6: "problem", 7: "monetization", 8: "stack", 9: "architecture",
+               10: "stage", 11: "revenue_full", 12: "mrr", 13: "costs", 14: "users", 15: "paying_full",
+               16: "metrics", 17: "current_tasks", 18: "roadmap", 19: "tech_risks", 20: "business_risks",
+               21: "goals", 23: "card_updated"}
+# Другие написания продукта в заголовках документов (для привязки ленты и вопросов к проекту).
+ALIASES = {"agentscore": ["Skills Pro"], "cc-pro": ["Claude Code PRO"], "nalog": ["NAlog"]}
+
+
+def registry():
     import yaml
-    reg = yaml.safe_load(read("portfolio/registry.yaml"))["products"]
+    return yaml.safe_load(read("portfolio/registry.yaml"))["products"]
+
+
+def products_of(text, path=""):
+    """Продукты, к которым относится документ: имя в заголовке или id в пути файла."""
+    found = []
+    for p in registry():
+        names = [p["name"]] + ALIASES.get(p["id"], [])
+        in_title = any(re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(n), text, re.I) for n in names)
+        in_path = re.search(r"(^|[/-])%s([/.-]|$)" % re.escape(p["id"]), path) is not None
+        if in_title or in_path:
+            found.append(p["name"])
+    return ", ".join(found)
+
+
+def build_portfolio(ref, handoff_counts):
     rows = []
-    for p in reg:
+    for p in registry():
         fields = {}
         card_path = p["card"]
         if os.path.exists(os.path.join(ROOT, card_path)):
@@ -99,21 +123,28 @@ def build_portfolio(ref, handoff_counts):
                 cells = [c.strip() for c in line.strip().strip("|").split("|")]
                 if len(cells) >= 3 and cells[0].isdigit():
                     fields[int(cells[0])] = cells[2]
-        rows.append({
+        audit = re.search(r"audit/[\w-]+/[\w-]+\.md", str(p.get("source", "")))
+        row = {
+            "id": p["id"],
             "product": p["name"],
             "status": p["status"],
             "launched": "да" if p.get("launched") else "нет",
             "revenue": plain(fields.get(11, "Не заполнено"), 60, lists=False),
             "paying": plain(fields.get(15, "Не заполнено"), 60, lists=False),
             "handoff": handoff_counts.get(p["id"], 0),
+            "url": p.get("url") or "",
+            "repo": "https://github.com/" + p["repo"] if p.get("repo") else "",
             "card": link(ref, card_path),
-        })
+            "audit": link(ref, audit.group(0)) if audit else "",
+        }
+        for num, col in CARD_FIELDS.items():
+            row[col] = plain(fields.get(num, "Не заполнено"), 700, lists=False)
+        rows.append(row)
     return rows
 
 
 def build_handoff(ref):
-    import yaml
-    names = {p["id"]: p["name"] for p in yaml.safe_load(read("portfolio/registry.yaml"))["products"]}
+    names = {p["id"]: p["name"] for p in registry()}
     rows, counts = [], {}
     text = read("handoff/README.md")
     for line in text.splitlines():
@@ -137,7 +168,7 @@ def build_feed(ref):
         summary = plain(section(text, summary_sections)) or plain(text.split("\n", 3)[-1])
         rows.append({"date": date_of(path, text), "kind": kind, "title": title,
                      "author": author(text, default_author), "summary": summary,
-                     "link": link(ref, path)})
+                     "products": products_of(title, path), "link": link(ref, path)})
 
     for p in sorted(glob.glob(os.path.join(ROOT, "reports", "**", "*.md"), recursive=True)):
         rel = os.path.relpath(p, ROOT)
@@ -153,14 +184,14 @@ def build_feed(ref):
                      "title": first_heading(text).replace("Задания для сессии разработки: ", "Задания: "),
                      "author": "AI CEO · CTO",
                      "summary": plain("%d задач. Первая: %s" % (len(tasks), tasks[0][1] if tasks else "—")),
-                     "link": link(ref, rel)})
+                     "products": products_of(first_heading(text), rel), "link": link(ref, rel)})
     # Решения собственника — по записи журнала.
     log = read("company/decisions/log.md")
     for m in re.finditer(r"^\*\*(D-\d+)\s*·\s*(\d{4}-\d{2}-\d{2})\s*·\s*(.+?)\*\*\n(.*?)(?=^\*\*D-|\Z)", log, re.M | re.S):
         rows.append({"date": m.group(2), "kind": "Решение собственника", "seq": int(m.group(1)[2:]),
                      "title": "%s. %s" % (m.group(1), m.group(3)),
                      "author": "собственник", "summary": plain(m.group(4)),
-                     "link": link(ref, "company/decisions/log.md")})
+                     "products": products_of(m.group(3)), "link": link(ref, "company/decisions/log.md")})
     order = {"Решение собственника": 0, "Материал к решению": 1, "Отчёт": 2, "Аудит": 3, "Задание для сессии": 4}
     # Сначала свежие даты; внутри дня — решения собственника (новые выше), затем материалы, отчёты, аудиты, задания.
     rows.sort(key=lambda r: (r["date"], -order.get(r["kind"], 9), r.get("seq", 0)), reverse=True)
@@ -189,7 +220,7 @@ def build_questions(ref):
             head, rest = (m.group(1).rstrip(":"), m.group(2)) if m else ("", item)
             rows.append({"id": "%s-%s" % (os.path.basename(p)[:-3], num), "date": date_of(rel, text),
                          "topic": topic, "head": plain(head, 80), "question": plain(rest, 260),
-                         "link": link(ref, rel)})
+                         "products": products_of(topic, rel), "link": link(ref, rel)})
     return rows
 
 

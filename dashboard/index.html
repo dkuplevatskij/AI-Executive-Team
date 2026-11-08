@@ -13,13 +13,6 @@
   .aet-tab[aria-selected=true] { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
   .aet-tab .cnt { font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; padding: 0 var(--cds-pad-xs); border-radius: 999px; background: var(--color-bad); color: var(--color-bg); }
 
-  .aet-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--cds-gap-md); }
-  .aet-tile { --accent: var(--color-fg-muted); font: inherit; text-align: left; color: inherit; cursor: pointer; background: var(--color-panel); border: 1px solid var(--color-border-line); border-top: 4px solid var(--accent); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; transition: transform var(--cds-dur-slow) var(--cds-ease-out); }
-  .aet-tile:hover { transform: translateY(-2px); border-color: var(--accent); border-top-color: var(--accent); }
-  .aet-tile .lbl { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
-  .aet-tile .num { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; color: var(--accent); }
-  .aet-tile .go { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
-
   .aet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: var(--cds-gap-md); }
   .aet-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
   .aet-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
@@ -43,9 +36,6 @@
   .aet-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); max-width: 16rem; z-index: 2; }
   .aet-tip .t { color: var(--cds-text-secondary); }
 
-  .aet-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: var(--cds-gap-sm); min-height: 6rem; }
-  .aet-status .col { border-radius: var(--cds-radius); border: 1px solid var(--color-border-line); padding: var(--cds-pad-sm); display: flex; flex-direction: column; gap: var(--cds-gap-xs); border-top: 4px solid var(--k); }
-  .aet-status .col h3 { margin: 0; font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); }
   .aet-chip { font: inherit; font-size: var(--cds-font-size-caption); display: inline-flex; gap: var(--cds-gap-xs); align-items: center; padding: 2px var(--cds-pad-sm); border-radius: 999px; border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); cursor: pointer; }
   .aet-chip:hover { border-color: var(--k, var(--color-fg-muted)); }
   .aet-chip[aria-pressed=true] { border-color: var(--k, var(--color-fg)); background: var(--color-panel); box-shadow: inset 0 0 0 1px var(--k, var(--color-fg)); }
@@ -66,15 +56,6 @@
   .aet-group h3 { margin: var(--cds-gap-sm) 0 0; font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); display: flex; gap: var(--cds-gap-sm); align-items: center; }
   .aet-q .head { font-weight: var(--cds-font-weight-medium); }
 
-  .aet-prods { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--cds-gap-md); min-height: 8rem; }
-  .aet-prod { border: 1px solid var(--color-border-line); border-top: 4px solid var(--k); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: flex; flex-direction: column; gap: var(--cds-gap-xs); background: var(--color-panel); cursor: pointer; }
-  .aet-prod:hover { border-color: var(--k); }
-  .aet-prod .name { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); }
-  .aet-prod .row { display: flex; justify-content: space-between; gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); }
-  .aet-prod .row span:first-child { color: var(--color-fg-muted); }
-  .aet-prod .track { height: 6px; border-radius: 3px; background: var(--color-bg); overflow: hidden; }
-  .aet-prod .fill { height: 100%; border-radius: 3px; background: var(--k); }
-
   .aet-scroll { overflow: auto; max-height: 34rem; }
   .aet table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
   .aet th { text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); position: sticky; top: 0; background: var(--color-panel); }
@@ -88,6 +69,66 @@
   .aet .clear { font: inherit; font-size: var(--cds-font-size-caption); background: none; border: 1px solid var(--color-border-line); border-radius: 999px; padding: 2px var(--cds-pad-sm); color: var(--color-fg); cursor: pointer; }
   [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
   [data-dash-source-state=empty] { color: transparent; }
+
+  .aet { container-type: inline-size; }
+  .aet-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(8.5rem, auto); grid-auto-flow: row dense; gap: var(--cds-gap-md); }
+  .aet-bento > * { min-width: 0; }
+  .bx { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: calc(var(--cds-radius) * 2); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; overflow: hidden; position: relative; }
+  .bx.w2 { grid-column: span 2; } .bx.w4 { grid-column: 1 / -1; } .bx.h2 { grid-row: span 2; }
+  .bx h2, .bx h3, .bx .lbl { margin: 0; font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); }
+  .bx .big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .bx.hero { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+  .bx.hero h2, .bx.hero .note { color: var(--color-bg); opacity: .75; }
+  .bx.hero .big { font-size: calc(var(--cds-font-size-title) * 2.4); }
+  .bx.hero .aet-chip { background: transparent; color: var(--color-bg); border-color: var(--color-bg); cursor: default; }
+  .bx.hero .clear { color: var(--color-bg); border-color: var(--color-bg); align-self: flex-start; margin-top: auto; }
+  button.bx { font: inherit; text-align: left; color: inherit; cursor: pointer; transition: transform var(--cds-dur-slow) var(--cds-ease-out), border-color var(--cds-dur-slow); }
+  button.bx:hover { transform: translateY(-2px); border-color: var(--k, var(--color-fg-muted)); }
+  .bx .foot { margin-top: auto; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .aet-sec { display: flex; align-items: baseline; justify-content: space-between; gap: var(--cds-gap-sm); margin: var(--cds-gap-sm) 0 calc(var(--cds-gap-sm) * -1); }
+  .aet-sec h2 { margin: 0; font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); }
+
+  .aet-projects { display: contents; }
+  .pj { --k: var(--color-fg-muted); }
+  .pj::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--k); }
+  .pj .pj-top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cds-gap-sm); }
+  .pj .pj-name { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-heading); line-height: 1.2; }
+  .pj.big .pj-name { font-size: var(--cds-font-size-title); }
+  .pj .pj-desc { margin: 0; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .pj.big .pj-desc { -webkit-line-clamp: 6; font-size: var(--cds-font-size-body); }
+  .pj .pj-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr)); gap: var(--cds-gap-xs); margin-top: auto; }
+  .pj .pj-stat { display: flex; flex-direction: column; gap: 2px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .pj .pj-stat b { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-heading); color: var(--color-fg); font-variant-numeric: tabular-nums; }
+  .pj .pj-last { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); border-top: 1px solid var(--color-border-line); padding-top: var(--cds-pad-xs); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .pj .pj-go { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); white-space: nowrap; }
+  .stg { display: flex; flex-direction: column; gap: var(--cds-gap-xs); }
+  .stg .r { display: flex; align-items: center; gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); }
+  .stg .r .v { margin-left: auto; font-variant-numeric: tabular-nums; }
+  .stg .trk { display: flex; height: 10px; border-radius: 5px; overflow: hidden; gap: 2px; }
+  .stg .trk span { display: block; height: 100%; }
+
+  .pp-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cds-gap-sm) var(--cds-gap-md); }
+  .pp-head .pp-name { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+  .pp-links { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); }
+  .pp-links a { font-size: var(--cds-font-size-caption); padding: 2px var(--cds-pad-sm); border-radius: 999px; border: 1px solid var(--color-border-line); text-decoration: none; }
+  .pp-links a:hover { border-color: var(--color-fg-muted); }
+  .bx .txt { margin: 0; font-size: var(--cds-font-size-caption); line-height: 1.5; white-space: pre-line; }
+  .bx .txt.clip { display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden; }
+  .bx .txt.lead { font-size: var(--cds-font-size-body); }
+  .bx[data-accent] .big { color: var(--k); }
+  .bx.hero .aet-chip b { font-weight: var(--cds-font-weight-medium); font-variant-numeric: tabular-nums; }
+  .bx .more { font: inherit; font-size: var(--cds-font-size-caption); background: none; border: 0; padding: 0; color: var(--color-fg-muted); text-decoration: underline; cursor: pointer; align-self: flex-start; }
+  .bx .aet-list { min-height: 3rem; }
+  .bx table { margin-top: var(--cds-gap-xs); }
+
+  @container (max-width: 60rem) {
+    .aet-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bx.w2 { grid-column: 1 / -1; }
+  }
+  @container (max-width: 30rem) {
+    .aet-bento { grid-template-columns: minmax(0, 1fr); }
+    .bx.w2, .bx.w4 { grid-column: 1 / -1; } .bx.h2 { grid-row: span 1; }
+  }
   @media (prefers-reduced-motion: no-preference) {
     .aet-pane:not([hidden]) { animation: aet-in var(--cds-dur-slow) var(--cds-ease-out); }
   }
@@ -97,64 +138,98 @@
 <div class="aet">
   <header class="aet-head" id="top">
     <h1>AI Executive Team</h1>
-    <p class="aet-take">Ждут вашего ответа: <b data-draw="t-questions" data-source="kpi" data-field="value" data-where="metric=questions">—</b> вопросов по <b data-draw="t-topics" data-source="kpi" data-field="value" data-where="metric=topics">—</b> темам. Задач в заданиях для сессий продуктов: <b data-draw="t-handoff" data-source="kpi" data-field="value" data-where="metric=handoff">—</b>, отправлено в сессии файлов: <b data-draw="t-sent" data-source="kpi" data-field="value" data-where="metric=sent">—</b>. Платящих клиентов в портфеле: <b data-draw="t-paying" data-source="kpi" data-field="value" data-where="metric=paying">—</b>.</p>
-    <p>Работа команды директоров из репозитория ai-executive-team. Нажимайте на графики и карточки — они открывают нужный раздел с фильтром.</p>
+    <p class="aet-take">Ждут вашего ответа: <b data-draw="t-questions" data-source="kpi" data-field="value" data-where="metric=questions">—</b> вопросов по <b data-draw="t-topics" data-source="kpi" data-field="value" data-where="metric=topics">—</b> темам. Задач в заданиях для сессий продуктов: <b data-draw="t-handoff" data-source="kpi" data-field="value" data-where="metric=handoff">—</b>. Платящих клиентов в портфеле: <b data-draw="t-paying" data-source="kpi" data-field="value" data-where="metric=paying">—</b>.</p>
   </header>
 
   <nav class="aet-tabs" role="tablist" aria-label="Разделы">
-    <button class="aet-tab" role="tab" data-tab="overview" id="tab-overview">Обзор</button>
+    <button class="aet-tab" role="tab" data-tab="home" id="tab-home">Главная</button>
     <button class="aet-tab" role="tab" data-tab="questions" id="tab-questions">Ждут вашего ответа <span class="cnt" data-draw="tab-questions" data-source="kpi" data-field="value" data-where="metric=questions">—</span></button>
     <button class="aet-tab" role="tab" data-tab="feed" id="tab-feed">Лента</button>
-    <button class="aet-tab" role="tab" data-tab="products" id="tab-products">Продукты</button>
     <button class="aet-tab" role="tab" data-tab="handoff" id="tab-handoff">Задания для сессий</button>
     <button class="aet-tab" role="tab" data-tab="team" id="tab-team">Команда</button>
   </nav>
 
-  <!-- Обзор -->
-  <section class="aet-pane" data-pane="overview" id="overview" role="tabpanel">
-    <div class="aet" style="max-width:none">
-      <div class="aet-tiles" aria-label="Сводка">
-        <button class="aet-tile" data-go="questions" data-accent="bad"><span class="lbl">Ждут вашего ответа</span><span class="num" data-draw="k-questions" data-source="kpi" data-field="value" data-where="metric=questions">—</span><span class="go">вопросы →</span></button>
-        <button class="aet-tile" data-go="handoff" data-accent="0"><span class="lbl">Задач для сессий продуктов</span><span class="num" data-draw="k-handoff" data-source="kpi" data-field="value" data-where="metric=handoff">—</span><span class="go">задания →</span></button>
-        <button class="aet-tile" data-go="products" data-accent="1"><span class="lbl">Продуктов в портфеле</span><span class="num" data-draw="k-products" data-source="kpi" data-field="value" data-where="metric=products">—</span><span class="go">продукты →</span></button>
-        <button class="aet-tile" data-go="products" data-accent="2"><span class="lbl">Платящих клиентов</span><span class="num" data-draw="k-paying" data-source="kpi" data-field="value" data-where="metric=paying">—</span><span class="go">продукты →</span></button>
-        <button class="aet-tile" data-go="feed" data-accent="3"><span class="lbl">Ваших решений в журнале</span><span class="num" data-draw="k-decisions" data-source="kpi" data-field="value" data-where="metric=decisions">—</span><span class="go">лента →</span></button>
-        <button class="aet-tile" data-go="team" data-accent="4"><span class="lbl">Задач команды в работе</span><span class="num" data-draw="k-tasks" data-source="kpi" data-field="value" data-where="metric=tasks">—</span><span class="go">команда →</span></button>
+  <!-- Главная: бенто -->
+  <section class="aet-pane" data-pane="home" id="home" role="tabpanel">
+    <div class="aet-bento" aria-label="Сводка">
+      <section class="bx hero w2 h2" id="hero">
+        <h2>Ждут вашего ответа</h2>
+        <span class="big" data-draw="k-questions" data-source="kpi" data-field="value" data-where="metric=questions">—</span>
+        <span class="note">вопросов по темам:</span>
+        <div class="aet-chips" data-draw="hero-topics" data-source="questions_by_topic"></div>
+        <button class="clear" data-go="questions">Открыть вопросы →</button>
+      </section>
+      <button class="bx" data-go="handoff" data-accent="0"><span class="lbl">Задач для сессий продуктов</span><span class="big" data-draw="k-handoff" data-source="kpi" data-field="value" data-where="metric=handoff">—</span><span class="foot">задания →</span></button>
+      <div class="bx" data-accent="2"><span class="lbl">Платящих клиентов</span><span class="big" data-draw="k-paying" data-source="kpi" data-field="value" data-where="metric=paying">—</span><span class="foot">по карточкам продуктов</span></div>
+      <button class="bx" data-go="feed" data-accent="3"><span class="lbl">Ваших решений в журнале</span><span class="big" data-draw="k-decisions" data-source="kpi" data-field="value" data-where="metric=decisions">—</span><span class="foot">лента →</span></button>
+      <button class="bx" data-go="team" data-accent="4"><span class="lbl">Задач команды в работе</span><span class="big" data-draw="k-tasks" data-source="kpi" data-field="value" data-where="metric=tasks">—</span><span class="foot">команда →</span></button>
+    </div>
+
+    <div class="aet-sec" id="projects"><h2>Проекты · <span data-draw="k-products" data-source="kpi" data-field="value" data-where="metric=products">—</span></h2><span class="note">Нажмите на карточку — откроется страница проекта со всеми подробностями.</span></div>
+    <div class="aet-bento">
+      <div class="aet-projects" data-draw="projects" data-source="portfolio product_stats"></div>
+      <div class="bx" id="stages">
+        <h2>Портфель по стадиям</h2>
+        <div class="stg" data-draw="stages" data-source="portfolio"></div>
       </div>
+    </div>
 
-      <div class="aet-grid">
-        <section class="aet-card" id="chart-handoff">
-          <h2>Задачи для сессий по продуктам</h2>
-          <p class="note">Сколько задач команда передала в сессию каждого продукта. Нажмите на полосу — откроются его задания.</p>
-          <div class="aet-chart" data-draw="c-handoff" data-source="handoff_by_product"></div>
-        </section>
-
-        <section class="aet-card" id="chart-feed">
-          <h2>Что команда выпустила</h2>
-          <p class="note">Записи ленты по видам. Нажмите на сектор или строку — откроется лента с этим фильтром.</p>
-          <div class="aet-chart aet-donut" data-draw="c-feed" data-source="feed_by_kind"></div>
-        </section>
-
-        <section class="aet-card" id="chart-questions">
-          <h2>Вопросы к вам по темам</h2>
-          <p class="note">Открытые пункты «Что нужно от собственника» из материалов к решениям. Нажмите на тему — откроются её вопросы.</p>
-          <div class="aet-chart" data-draw="c-questions" data-source="questions_by_topic"></div>
-        </section>
-
-        <section class="aet-card" id="chart-status">
-          <h2>Портфель по стадиям</h2>
-          <p class="note">Стадия из реестра продуктов. Нажмите на продукт — откроются его задания.</p>
-          <div class="aet-status" data-draw="c-status" data-source="portfolio"></div>
-        </section>
-      </div>
-
-      <section class="aet-card" id="latest">
-        <div class="aet-bar"><h2>Последние записи</h2><button class="clear" data-go="feed">Вся лента →</button></div>
+    <div class="aet-sec"><h2>Что нового</h2><button class="clear" data-go="feed">Вся лента →</button></div>
+    <div class="aet-bento">
+      <section class="bx w2" id="latest">
+        <h2>Последние записи</h2>
         <div class="aet-list" data-draw="latest" data-source="feed"></div>
+      </section>
+      <section class="bx w2" id="chart-feed">
+        <h2>Что команда выпустила</h2>
+        <p class="note">Записи ленты по видам. Нажмите на сектор — откроется лента с этим фильтром.</p>
+        <div class="aet-chart aet-donut" data-draw="c-feed" data-source="feed_by_kind"></div>
       </section>
     </div>
   </section>
 
+  <!-- Страница проекта -->
+  <section class="aet-pane" data-pane="project" id="project" role="tabpanel" hidden>
+    <div class="aet-bento">
+      <div class="bx w4">
+        <div class="aet-bar"><button class="clear" data-go="home">← Все проекты</button><span class="note">Карточка обновлена: <b data-draw="pf" data-source="portfolio" data-field="card_updated">—</b></span></div>
+        <div class="pp-head">
+          <h1 class="pp-name" data-draw="pf" data-source="portfolio" data-field="product">—</h1>
+          <span class="aet-pill" data-draw="p-status" data-source="portfolio"></span>
+          <div class="pp-links" data-draw="p-links" data-source="portfolio"></div>
+        </div>
+        <div class="fv" data-draw="pf" data-source="portfolio" data-f="description" data-lead="1">—</div>
+      </div>
+
+      <div class="bx"><h3>Платящих пользователей</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="paying_full">—</div></div>
+      <div class="bx"><h3>Выручка</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="revenue_full">—</div></div>
+      <div class="bx"><h3>Регулярная выручка (MRR)</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="mrr">—</div></div>
+      <div class="bx"><h3>Пользователей</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="users">—</div></div>
+
+      <div class="bx w2"><h3>Текущий этап</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="stage">—</div></div>
+      <div class="bx w2"><h3>Текущие задачи</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="current_tasks">—</div></div>
+
+      <section class="bx w2" id="p-questions"><h3>Вопросы к вам по проекту</h3><div class="aet-list" data-draw="p-questions" data-source="questions"></div></section>
+      <section class="bx w2" id="p-handoff"><h3>Задания для сессии проекта</h3><div class="aet-scroll"><table data-source="handoff" data-row-key="product"><thead><tr><th data-field="product">Задание</th><th data-field="tasks" class="num">Задач</th><th data-field="sent">Отправлено</th><th data-field="done">Выполнено</th></tr></thead><tbody data-draw="p-handoff"></tbody></table></div></section>
+
+      <div class="bx w2"><h3>Модель монетизации</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="monetization">—</div></div>
+      <div class="bx"><h3>Целевая аудитория</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="audience">—</div></div>
+      <div class="bx"><h3>Проблема пользователя</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="problem">—</div></div>
+
+      <div class="bx w2"><h3>Технические риски</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="tech_risks">—</div></div>
+      <div class="bx w2"><h3>Бизнес-риски</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="business_risks">—</div></div>
+
+      <div class="bx w2"><h3>Roadmap</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="roadmap">—</div></div>
+      <div class="bx"><h3>Цели на квартал</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="goals">—</div></div>
+      <div class="bx"><h3>Расходы</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="costs">—</div></div>
+
+      <div class="bx"><h3>Продуктовые метрики</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="metrics">—</div></div>
+      <div class="bx"><h3>Технологический стек</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="stack">—</div></div>
+      <div class="bx w2"><h3>Архитектура</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="architecture">—</div></div>
+
+      <section class="bx w4" id="p-feed"><h3>Лента проекта: решения, материалы, задания</h3><div class="aet-list" data-draw="p-feed" data-source="feed"></div></section>
+    </div>
+  </section>
   <!-- Вопросы -->
   <section class="aet-pane aet-card" data-pane="questions" id="questions" role="tabpanel" hidden>
     <div class="aet-bar">
@@ -183,13 +258,6 @@
     <div class="aet-list" data-draw="feed-list" data-source="feed"></div>
   </section>
 
-  <!-- Продукты -->
-  <section class="aet-pane aet-card" data-pane="products" id="products" role="tabpanel" hidden>
-    <h2>Продукты портфеля</h2>
-    <p class="note">Стадия из реестра, выручка и платящие — из карточки продукта. Нажмите на карточку — откроются задания для его сессии; ссылка «Карточка» ведёт в GitHub.</p>
-    <div class="aet-prods" data-draw="prods" data-source="portfolio"></div>
-  </section>
-
   <!-- Задания для сессий -->
   <section class="aet-pane aet-card" data-pane="handoff" id="handoff" role="tabpanel" hidden>
     <div class="aet-bar">
@@ -199,7 +267,8 @@
         <button class="clear aet-group-clear" hidden>Сбросить ×</button>
       </div>
     </div>
-    <p class="note">Вы пересылаете файл в сессию проекта; когда задачи сделаны — скажите AI CEO, статус обновится.</p>
+    <p class="note">Вы пересылаете файл в сессию проекта; когда задачи сделаны — скажите AI CEO, статус обновится. Нажмите на полосу — останутся задания этого продукта.</p>
+    <div class="aet-chart" data-draw="c-handoff" data-source="handoff_by_product" id="chart-handoff"></div>
     <div class="aet-scroll">
       <table data-source="handoff" data-row-key="product">
         <thead><tr><th data-field="product">Задание</th><th data-field="group">Продукт</th><th data-field="tasks" class="num">Задач</th><th data-field="created">Создано</th><th data-field="sent">Отправлено</th><th data-field="done">Выполнено</th></tr></thead>
@@ -288,12 +357,24 @@
       .map(([who, s]) => ({ who, ...s })).sort((a, b) => (b.done + b.blocked + b.asked) - (a.done + a.blocked + a.asked)),
   });
 
+  dash.calc('product_stats', {
+    inputs: ['portfolio', 'feed', 'questions'], title: 'Активность по проектам',
+    description: 'Для каждого проекта: открытые вопросы к собственнику, записи ленты и самая свежая из них.',
+    fn: (portfolio, feed, questions) => portfolio.map((p) => {
+      const has = (r) => String(r.products || '').split(', ').includes(p.product);
+      const mine = feed.filter(has);
+      return { id: p.id, product: p.product, questions: questions.filter(has).length, feed: mine.length,
+               last_date: mine.length ? mine[0].date : '', last_title: mine.length ? mine[0].title : '' };
+    }),
+  });
+
   // ---------- Общие помощники ----------
   const C = dash.colors;
   const MUTED = 'var(--cds-chart-muted)';
   const fmt = (n) => d3.format(',')(n).replace(/,/g, ' ');
   const rowsOf = (id) => { const d = dash.data(id); return d.status === 'ok' ? d.data : null; };
-  const safeLink = (href) => (typeof href === 'string' && href.startsWith('https://github.com/dkuplevatskij/')) ? href : null;
+  // Ссылки только https: документы и репозитории на GitHub, боевые адреса продуктов из реестра.
+  const safeLink = (href) => (typeof href === 'string' && /^https:\/\/[^\s"'<>]+$/.test(href)) ? href : null;
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = String(text); return e; };
   const aLink = (text, href, cls) => {
     const url = safeLink(href);
@@ -310,8 +391,10 @@
   };
   const KIND = { 'Решение собственника': 0, 'Материал к решению': 1, 'Задание для сессии': 2, 'Отчёт': 3, 'Аудит': 4 };
   const kindColor = (k) => (k in KIND ? C[KIND[k]] : MUTED);
-  const STATUS = { Production: 'var(--color-ok)', Beta: 'var(--color-warn)', Development: C[5] };
-  const STATUS_RU = { Production: 'В работе у клиентов', Beta: 'Бета', Development: 'В разработке' };
+  const STATUS = { Production: 'var(--color-ok)', Beta: 'var(--color-warn)', Development: C[5], Paused: MUTED, Archived: MUTED };
+  const STATUS_RU = { Production: 'Запущен', Beta: 'Бета', Development: 'В разработке', Paused: 'На паузе', Archived: 'В архиве' };
+  const statusPill = (pill, st) => { const dot = el('span', 'dot'); dot.style.setProperty('--k', STATUS[st] || MUTED); pill.replaceChildren(dot, el('span', '', STATUS_RU[st] || st)); };
+  const hasProduct = (r, name) => String(r.products || '').split(', ').includes(name);
   const AGENT_RU = { 'AI CEO': 'AI CEO', 'chief-of-staff': 'Chief of Staff', cfo: 'CFO', cto: 'CTO', cpo: 'CPO', cro: 'CRO', cmo: 'CMO', coo: 'COO', cso: 'CSO', ciso: 'CISO', cdo: 'CDO', 'head-pm': 'Head PM', 'portfolio-pm': 'Head PM (старое имя)', 'general-purpose': 'вспомогательный агент' };
   const topicIndex = (t) => { const r = rowsOf('questions_by_topic') || []; return Math.max(0, r.findIndex((x) => x.topic === t)); };
   const topicColor = (t) => C[(topicIndex(t) + 3) % C.length];
@@ -362,16 +445,16 @@
   };
 
   // ---------- Вкладки ----------
-  const TABS = ['overview', 'questions', 'feed', 'products', 'handoff', 'team'];
+  const TABS = ['home', 'project', 'questions', 'feed', 'handoff', 'team'];
+  const OLD = { overview: 'home', products: 'home' }; // прежние имена разделов
+  const tabOf = (t) => (TABS.includes(t) ? t : (OLD[t] || 'home'));
   const named = location.hash.slice(1);
-  if (TABS.includes(named)) dash.setParams({ tab: named });
+  if (TABS.includes(named) || named in OLD) dash.setParams({ tab: tabOf(named) });
   document.querySelectorAll('.aet-tab').forEach((b) => b.addEventListener('click', () => go(b.dataset.tab)));
   document.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => go(b.dataset.go, b.dataset.go === 'feed' ? { kind: null } : {})));
-  // Цвета плиток: акцент по токену или по номеру серии.
-  document.querySelectorAll('.aet-tile').forEach((t) => {
-    const a = t.dataset.accent;
-    t.style.setProperty('--accent', a === 'bad' ? 'var(--color-bad)' : C[Number(a) % C.length]);
-  });
+  // Цвета плиток: акцент по номеру серии.
+  document.querySelectorAll('.bx[data-accent]').forEach((t) => t.style.setProperty('--k', C[Number(t.dataset.accent) % C.length]));
+  const curProduct = () => { const p = P().product; return p ? ((rowsOf('portfolio') || []).find((r) => r.id === p) || null) : null; };
   document.querySelectorAll('.aet-chip[data-kind]').forEach((b) => {
     if (b.dataset.kind) b.style.setProperty('--k', kindColor(b.dataset.kind));
     b.addEventListener('click', () => dash.setParams({ kind: b.dataset.kind || null }));
@@ -383,9 +466,11 @@
   document.querySelectorAll('.aet-group-clear').forEach((b) => b.addEventListener('click', () => dash.setParams({ group: null })));
 
   dash.onData(() => {
-    const tab = TABS.includes(P().tab) ? P().tab : 'overview';
+    let tab = tabOf(P().tab);
+    if (tab === 'project' && !P().product) tab = 'home';
     document.querySelectorAll('.aet-pane').forEach((s) => { s.hidden = s.dataset.pane !== tab; });
-    document.querySelectorAll('.aet-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+    const lit = tab === 'project' ? 'home' : tab; // страница проекта — часть главной
+    document.querySelectorAll('.aet-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === lit)));
     const kind = P().kind || '';
     document.querySelectorAll('.aet-chip[data-kind]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.kind === kind)));
     document.querySelectorAll('.aet-group-clear').forEach((b) => { b.hidden = !P().group; });
@@ -398,25 +483,16 @@
     e.textContent = row && row.value !== null ? fmt(row.value) : (d.status === 'ok' ? 'нет данных' : '—');
   };
   [['k-questions', 'questions'], ['k-handoff', 'handoff'], ['k-products', 'products'], ['k-paying', 'paying'], ['k-decisions', 'decisions'], ['k-tasks', 'tasks'],
-   ['t-questions', 'questions'], ['t-topics', 'topics'], ['t-handoff', 'handoff'], ['t-sent', 'sent'], ['t-paying', 'paying'], ['tab-questions', 'questions']]
+   ['t-questions', 'questions'], ['t-topics', 'topics'], ['t-handoff', 'handoff'], ['t-paying', 'paying'], ['tab-questions', 'questions']]
     .forEach(([name, metric]) => dash.draw(name, kpi(metric)));
 
-  // ---------- Обзор: графики ----------
+  // ---------- Графики ----------
   dash.draw('c-handoff', (box) => {
     const rows = rowsOf('handoff_by_product');
     hbars(box, rows, {
       label: (d) => d.group, value: (d) => d.tasks, color: (d) => productColor(d.group),
       tip: (d) => `${fmt(d.tasks)} задач в ${fmt(d.files)} файл(ах) заданий`,
       onClick: (d) => go('handoff', { group: d.group }),
-    });
-  });
-
-  dash.draw('c-questions', (box) => {
-    const rows = rowsOf('questions_by_topic');
-    hbars(box, rows, {
-      label: (d) => d.topic, value: (d) => d.n, color: (d) => topicColor(d.topic),
-      tip: (d) => `${fmt(d.n)} открытых вопросов`,
-      onClick: (d) => go('questions', { topic: d.topic }),
     });
   });
 
@@ -446,26 +522,7 @@
     box.appendChild(ul);
   });
 
-  dash.draw('c-status', (box) => {
-    box.replaceChildren();
-    const rows = rowsOf('portfolio'); if (!rows) return;
-    ['Production', 'Beta', 'Development'].forEach((st) => {
-      const list = rows.filter((r) => r.status === st); if (!list.length) return;
-      const col = el('div', 'col'); col.style.setProperty('--k', STATUS[st] || MUTED);
-      col.appendChild(el('h3', '', `${STATUS_RU[st] || st} · ${list.length}`));
-      const chips = el('div', 'aet-chips');
-      list.forEach((r) => {
-        const b = el('button', 'aet-chip'); b.style.setProperty('--k', productColor(r.product));
-        const dot = el('span', 'dot'); dot.style.setProperty('--k', productColor(r.product));
-        b.append(dot, el('span', '', r.product));
-        b.addEventListener('click', () => go('handoff', { group: r.product }));
-        chips.appendChild(b);
-      });
-      col.appendChild(chips); box.appendChild(col);
-    });
-  });
-
-  // Карточка записи ленты (общая для обзора и ленты)
+  // Карточка записи ленты (общая для главной, ленты и страницы проекта)
   const feedItem = (r, clip) => {
     const it = el('article', 'aet-item'); it.style.setProperty('--k', kindColor(r.kind));
     const meta = el('div', 'meta');
@@ -482,7 +539,7 @@
 
   dash.draw('latest', (box) => {
     box.replaceChildren();
-    (rowsOf('feed') || []).slice(0, 5).forEach((r) => box.appendChild(feedItem(r, true)));
+    (rowsOf('feed') || []).slice(0, 4).forEach((r) => box.appendChild(feedItem(r, true)));
   });
 
   // ---------- Вопросы ----------
@@ -532,25 +589,115 @@
     (feedRows() || []).forEach((r) => box.appendChild(feedItem(r, true)));
   });
 
-  // ---------- Продукты ----------
-  dash.draw('prods', (box) => {
+  // ---------- Главная: бенто ----------
+  dash.draw('hero-topics', (box) => {
     box.replaceChildren();
-    const rows = rowsOf('portfolio'); if (!rows) return;
-    const max = d3.max(rows, (r) => Number(r.handoff)) || 1;
-    rows.forEach((r) => {
-      const c = el('article', 'aet-prod'); c.style.setProperty('--k', productColor(r.product));
-      c.appendChild(el('div', 'name', r.product));
-      const st = el('span', 'aet-pill'); const dot = el('span', 'dot'); dot.style.setProperty('--k', STATUS[r.status] || MUTED);
-      st.append(dot, el('span', '', STATUS_RU[r.status] || r.status));
-      c.appendChild(st);
-      const row = (k, v) => { const d = el('div', 'row'); d.append(el('span', '', k), el('span', '', v)); c.appendChild(d); };
-      row('Запущен', r.launched); row('Платящих', String(r.paying).split('.')[0]); row('Выручка', String(r.revenue).split(' — ')[0]);
-      row('Задач для сессии', fmt(r.handoff));
-      const tr = el('div', 'track'); const f = el('div', 'fill'); f.style.width = (100 * Number(r.handoff) / max) + '%'; tr.appendChild(f); c.appendChild(tr);
-      const a = aLink('Карточка продукта →', r.card, 'note'); a.addEventListener('click', (ev) => ev.stopPropagation()); c.appendChild(a);
-      c.addEventListener('click', () => go('handoff', { group: r.product }));
+    (rowsOf('questions_by_topic') || []).forEach((r) => {
+      const s = el('span', 'aet-chip'); s.append(el('span', '', r.topic), el('b', '', fmt(r.n))); box.appendChild(s);
+    });
+  });
+
+  dash.draw('projects', (box) => {
+    box.replaceChildren();
+    const rows = rowsOf('portfolio'), stats = rowsOf('product_stats');
+    if (!rows || !stats) return;
+    const st = (id) => stats.find((s) => s.id === id) || {};
+    // Крупная карточка — проект с самой свежей записью; запущенные — широкие; в разработке — малые.
+    const launched = (r) => r.launched === 'да';
+    const lead = rows.slice().sort((a, b) => String(st(b.id).last_date).localeCompare(String(st(a.id).last_date)))[0];
+    const order = [lead, ...rows.filter((r) => r !== lead && launched(r)), ...rows.filter((r) => r !== lead && !launched(r))];
+    order.forEach((r) => {
+      const s = st(r.id), big = r === lead;
+      const c = el('button', 'bx pj' + (big ? ' big w2 h2' : launched(r) ? ' w2' : ''));
+      c.type = 'button'; c.style.setProperty('--k', productColor(r.product));
+      c.setAttribute('aria-label', `${r.product}: открыть страницу проекта`);
+      const top = el('span', 'pj-top'); const pill = el('span', 'aet-pill'); statusPill(pill, r.status);
+      top.append(el('span', 'pj-name', r.product), pill); c.appendChild(top);
+      c.appendChild(el('span', 'pj-desc', r.description));
+      const stats2 = el('span', 'pj-stats');
+      const stat = (label, v) => { const d = el('span', 'pj-stat'); d.append(el('b', '', v), el('span', '', label)); stats2.appendChild(d); };
+      const paid = parseInt(String(r.paying), 10);
+      stat('платящих', Number.isNaN(paid) ? 'нет данных' : fmt(paid));
+      stat('задач для сессии', fmt(r.handoff));
+      stat('вопросов к вам', fmt(s.questions || 0));
+      if (big || launched(r)) stat('записей в ленте', fmt(s.feed || 0));
+      c.appendChild(stats2);
+      if (s.last_title) c.appendChild(el('span', 'pj-last', `${s.last_date} · ${s.last_title}`));
+      c.appendChild(el('span', 'pj-go', 'Подробнее →'));
+      c.addEventListener('click', () => go('project', { product: r.id }));
       box.appendChild(c);
     });
+  });
+
+  dash.draw('stages', (box) => {
+    box.replaceChildren();
+    const rows = rowsOf('portfolio'); if (!rows || !rows.length) return;
+    const groups = d3.rollups(rows, (v) => v.length, (r) => r.status);
+    const trk = el('div', 'trk');
+    groups.forEach(([st, n]) => { const s = el('span'); s.style.flex = String(n); s.style.background = STATUS[st] || MUTED; trk.appendChild(s); });
+    box.appendChild(trk);
+    groups.forEach(([st, n]) => {
+      const r = el('div', 'r'); const dot = el('span', 'dot'); dot.style.setProperty('--k', STATUS[st] || MUTED);
+      r.append(dot, el('span', '', STATUS_RU[st] || st), el('span', 'v', fmt(n))); box.appendChild(r);
+    });
+  });
+
+  // ---------- Страница проекта ----------
+  const LONG = 420;
+  dash.draw('pf', (e) => {
+    const p = curProduct();
+    const field = e.dataset.f || e.dataset.field;
+    if (!e.dataset.f) { // простое поле: название, дата
+      e.dataset.where = 'id=' + (P().product || '');
+      e.textContent = p ? String(p[field] ?? '') : '—';
+      return;
+    }
+    e.replaceChildren();
+    if (!p) { e.textContent = '—'; return; }
+    const text = String(p[field] ?? '');
+    const t = el('p', 'txt' + (e.dataset.lead ? ' lead' : '') + (text.length > LONG ? ' clip' : ''), text);
+    t.dataset.source = 'portfolio'; t.dataset.field = field; t.dataset.where = 'id=' + p.id;
+    e.appendChild(t);
+    if (text.length > LONG) {
+      const m = el('button', 'more', 'показать полностью'); m.type = 'button';
+      m.addEventListener('click', () => { t.classList.toggle('clip'); m.textContent = t.classList.contains('clip') ? 'показать полностью' : 'свернуть'; });
+      e.appendChild(m);
+    }
+  });
+  dash.draw('p-status', (pill) => { const p = curProduct(); if (!p) { pill.replaceChildren(); return; } statusPill(pill, p.status); });
+  dash.draw('p-links', (box) => {
+    box.replaceChildren();
+    const p = curProduct(); if (!p) return;
+    [['Сайт', p.url], ['Репозиторий', p.repo], ['Карточка продукта', p.card], ['Аудит', p.audit]].forEach(([t, href]) => {
+      if (safeLink(href)) box.appendChild(aLink(t + ' ↗', href));
+    });
+  });
+  dash.draw('p-questions', (box) => {
+    box.replaceChildren();
+    const p = curProduct(); const rows = rowsOf('questions'); if (!p || !rows) return;
+    const list = rows.filter((r) => hasProduct(r, p.product));
+    if (!list.length) { box.appendChild(el('p', 'note', 'Открытых вопросов по проекту нет.')); return; }
+    list.forEach((q) => {
+      const it = el('article', 'aet-item aet-q'); it.style.setProperty('--k', topicColor(q.topic));
+      const line = el('div'); line.append(el('span', 'head', `${q.head ? q.head + ': ' : ''}`), el('span', '', q.question));
+      it.append(aLink(q.topic, q.link, 'note'), line); box.appendChild(it);
+    });
+  });
+  dash.draw('p-handoff', (tbody) => {
+    tbody.replaceChildren();
+    const p = curProduct(); if (!p) return;
+    (rowsOf('handoff') || []).filter((r) => r.group === p.product).forEach((r) => {
+      const tr = tbody.insertRow(); tr.dataset.key = r.product;
+      const td = tr.insertCell(); td.className = 'title'; td.appendChild(aLink(r.product, r.link));
+      cell(tr, r.tasks, 'num'); cell(tr, r.sent); cell(tr, r.done);
+    });
+  });
+  dash.draw('p-feed', (box) => {
+    box.replaceChildren();
+    const p = curProduct(); const rows = rowsOf('feed'); if (!p || !rows) return;
+    const list = rows.filter((r) => hasProduct(r, p.product));
+    if (!list.length) { box.appendChild(el('p', 'note', 'Записей по проекту пока нет.')); return; }
+    list.forEach((r) => box.appendChild(feedItem(r, true)));
   });
 
   // ---------- Задания ----------
