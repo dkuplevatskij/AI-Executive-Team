@@ -119,6 +119,13 @@
   .bx.hero .aet-chip b { font-weight: var(--cds-font-weight-medium); font-variant-numeric: tabular-nums; }
   .bx .more { font: inherit; font-size: var(--cds-font-size-caption); background: none; border: 0; padding: 0; color: var(--color-fg-muted); text-decoration: underline; cursor: pointer; align-self: flex-start; }
   .bx .aet-list { min-height: 3rem; }
+  .pj .pj-gh { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+  .pj .pj-gh b { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+  .gh-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: var(--cds-gap-sm); min-height: 3.5rem; }
+  .gh-stat { display: flex; flex-direction: column; gap: 2px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .gh-stat b { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-heading); color: var(--color-fg); font-variant-numeric: tabular-nums; }
+  .gh-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--cds-gap-md); }
+  .gh-cols > div { display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; }
   .bx table { margin-top: var(--cds-gap-xs); }
 
   @container (max-width: 60rem) {
@@ -167,7 +174,7 @@
 
     <div class="aet-sec" id="projects"><h2>Проекты · <span data-draw="k-products" data-source="kpi" data-field="value" data-where="metric=products">—</span></h2><span class="note">Нажмите на карточку — откроется страница проекта со всеми подробностями.</span></div>
     <div class="aet-bento">
-      <div class="aet-projects" data-draw="projects" data-source="portfolio product_stats"></div>
+      <div class="aet-projects" data-draw="projects" data-source="portfolio product_stats gh_activity"></div>
       <div class="bx" id="stages">
         <h2>Портфель по стадиям</h2>
         <div class="stg" data-draw="stages" data-source="portfolio"></div>
@@ -185,6 +192,10 @@
         <p class="note">Записи ленты по видам. Нажмите на сектор — откроется лента с этим фильтром.</p>
         <div class="aet-chart aet-donut" data-draw="c-feed" data-source="feed_by_kind"></div>
       </section>
+      <section class="bx w4" id="gh-week">
+        <div class="aet-bar"><h2>GitHub за 7 дней: слитые PR по проектам</h2><span class="note">Живые данные из GitHub при каждом открытии. Нажмите на полосу — откроется проект.</span></div>
+        <div class="aet-chart" data-draw="c-gh" data-source="gh_activity"></div>
+      </section>
     </div>
   </section>
 
@@ -200,6 +211,15 @@
         </div>
         <div class="fv" data-draw="pf" data-source="portfolio" data-f="description" data-lead="1">—</div>
       </div>
+
+      <section class="bx w4" id="p-github">
+        <div class="aet-bar"><h3>Активность в GitHub — живые данные</h3><span class="note">Обновляется при каждом открытии дашборда.</span></div>
+        <div class="gh-stats" data-draw="p-gh-stats" data-source="gh_activity"></div>
+        <div class="gh-cols">
+          <div><h3>Открытые PR</h3><div class="aet-list" data-draw="p-gh-open" data-source="gh_open_prs"></div></div>
+          <div><h3>Слито за 7 дней</h3><div class="aet-list" data-draw="p-gh-merged" data-source="gh_merged"></div></div>
+        </div>
+      </section>
 
       <div class="bx"><h3>Платящих пользователей</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="paying_full">—</div></div>
       <div class="bx"><h3>Выручка</h3><div class="fv" data-draw="pf" data-source="portfolio" data-f="revenue_full">—</div></div>
@@ -368,10 +388,54 @@
     }),
   });
 
+  // ---------- GitHub: живые данные через коннектор ----------
+  // Окно «за 7 дней» — дата, а не время: один кэш на день.
+  dash.setParams({ since: new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10) });
+  dash.loader('gh_repos', {
+    description: 'Ответ поиска репозиториев GitHub как строки: репозиторий, время последнего обновления, число открытых issues вместе с PR.',
+    fn: ({ answer }) => {
+      const a = typeof answer === 'string' ? JSON.parse(answer) : answer;
+      if (!a || !Array.isArray(a.items)) throw new Error('GitHub: в ответе нет списка items');
+      return a.items.map((r) => ({ repo: String(r.full_name).toLowerCase(), updated_at: r.updated_at, open_count: Number(r.open_issues_count) || 0, url: r.html_url }));
+    },
+  });
+  dash.loader('gh_open_prs', {
+    description: 'Открытые PR из поиска GitHub как строки: репозиторий, номер, название, черновик, ссылка, даты.',
+    fn: ({ answer }) => {
+      const a = typeof answer === 'string' ? JSON.parse(answer) : answer;
+      if (!a || !Array.isArray(a.items)) throw new Error('GitHub: в ответе нет списка items');
+      const rows = a.items.map((r) => ({ repo: String(r.repository_url).replace('https://api.github.com/repos/', '').toLowerCase(), number: r.number, title: r.title, draft: r.draft ? 'да' : 'нет', url: r.html_url, created_at: r.created_at, updated_at: r.updated_at }));
+      return { columns: ['repo', 'number', 'title', 'draft', 'url', 'created_at', 'updated_at'], rows, cut: Number(a.total_count) > rows.length };
+    },
+  });
+  dash.loader('gh_merged', {
+    description: 'PR, слитые с даты фильтра, из поиска GitHub как строки: репозиторий, номер, название, ссылка, время слияния.',
+    fn: ({ answer }) => {
+      const a = typeof answer === 'string' ? JSON.parse(answer) : answer;
+      if (!a || !Array.isArray(a.items)) throw new Error('GitHub: в ответе нет списка items');
+      const rows = a.items.map((r) => ({ repo: String(r.repository_url).replace('https://api.github.com/repos/', '').toLowerCase(), number: r.number, title: r.title, url: r.html_url, merged_at: r.closed_at }));
+      return { columns: ['repo', 'number', 'title', 'url', 'merged_at'], rows, cut: Number(a.total_count) > rows.length };
+    },
+  });
+  dash.calc('gh_activity', {
+    inputs: ['portfolio', 'gh_repos', 'gh_open_prs', 'gh_merged'], title: 'GitHub по проектам',
+    description: 'Для каждого проекта: последнее обновление репозитория, открытые PR и issues, PR, слитые за 7 дней.',
+    fn: (portfolio, gh_repos, gh_open_prs, gh_merged) => portfolio.map((p) => {
+      const repo = String(p.repo || '').replace('https://github.com/', '').toLowerCase();
+      const r = gh_repos.find((x) => x.repo === repo);
+      const prs = gh_open_prs.filter((x) => x.repo === repo).length;
+      return { id: p.id, product: p.product, repo, updated_at: r ? r.updated_at : '',
+               open_prs: prs, open_issues: r ? Math.max(0, r.open_count - prs) : null,
+               merged: gh_merged.filter((x) => x.repo === repo).length };
+    }),
+  });
+
   // ---------- Общие помощники ----------
   const C = dash.colors;
   const MUTED = 'var(--cds-chart-muted)';
   const fmt = (n) => d3.format(',')(n).replace(/,/g, ' ');
+  const ddmm = (s) => { const d = new Date(s); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' }); };
+  const ago = (s) => { const d = new Date(s); if (Number.isNaN(d.getTime())) return '—'; const n = Math.floor((Date.now() - d) / 864e5); return n <= 0 ? 'сегодня' : n === 1 ? 'вчера' : `${n} дн. назад`; };
   const rowsOf = (id) => { const d = dash.data(id); return d.status === 'ok' ? d.data : null; };
   // Ссылки только https: документы и репозитории на GitHub, боевые адреса продуктов из реестра.
   const safeLink = (href) => (typeof href === 'string' && /^https:\/\/[^\s"'<>]+$/.test(href)) ? href : null;
@@ -602,6 +666,7 @@
     const rows = rowsOf('portfolio'), stats = rowsOf('product_stats');
     if (!rows || !stats) return;
     const st = (id) => stats.find((s) => s.id === id) || {};
+    const gh = rowsOf('gh_activity') || []; // GitHub не обязателен: без него карточки рисуются как раньше
     // Крупная карточка — проект с самой свежей записью; запущенные — широкие; в разработке — малые.
     const launched = (r) => r.launched === 'да';
     const lead = rows.slice().sort((a, b) => String(st(b.id).last_date).localeCompare(String(st(a.id).last_date)))[0];
@@ -627,6 +692,12 @@
       stat('вопросов к вам', fmt(s.questions || 0));
       if (big || wide.has(r)) stat('записей в ленте', fmt(s.feed || 0));
       c.appendChild(stats2);
+      const g = gh.find((x) => x.id === r.id);
+      if (g && g.updated_at) {
+        const line = el('span', 'pj-gh');
+        line.append('GitHub: обновлён ', el('b', '', ago(g.updated_at)), ' · открыто PR ', el('b', '', fmt(g.open_prs)), ' · слито за 7 дн. ', el('b', '', fmt(g.merged)));
+        c.appendChild(line);
+      }
       if (s.last_title) c.appendChild(el('span', 'pj-last', `${s.last_date} · ${s.last_title}`));
       c.appendChild(el('span', 'pj-go', 'Подробнее →'));
       c.addEventListener('click', () => go('project', { product: r.id }));
@@ -704,6 +775,48 @@
     if (!list.length) { box.appendChild(el('p', 'note', 'Записей по проекту пока нет.')); return; }
     list.forEach((r) => box.appendChild(feedItem(r, true)));
   });
+
+  // ---------- GitHub: графики и страница проекта ----------
+  const ghProblem = (box) => {
+    const st = dash.data('gh_activity').status;
+    if (st === 'connect' || st === 'error' || st === 'declined') { box.appendChild(el('p', 'note', 'Нет данных из GitHub: проверьте коннектор «Claude AI Executive Team» в настройках claude.ai.')); return true; }
+    return false;
+  };
+  dash.draw('c-gh', (box) => {
+    box.replaceChildren();
+    if (ghProblem(box)) return;
+    const rows = rowsOf('gh_activity'); if (!rows) return;
+    hbars(box, rows.slice().sort((a, b) => b.merged - a.merged), {
+      label: (d) => d.product, value: (d) => d.merged, color: (d) => productColor(d.product),
+      tip: (d) => `обновлён ${ago(d.updated_at)} · открыто PR ${fmt(d.open_prs)} · issues ${d.open_issues == null ? '—' : fmt(d.open_issues)}`,
+      onClick: (d) => go('project', { product: d.id }),
+    });
+  });
+  dash.draw('p-gh-stats', (box) => {
+    box.replaceChildren();
+    if (ghProblem(box)) return;
+    const p = curProduct(); const g = p ? (rowsOf('gh_activity') || []).find((x) => x.id === p.id) : null; if (!g) return;
+    const stat = (label, v) => { const d = el('span', 'gh-stat'); d.append(el('b', '', v), el('span', '', label)); box.appendChild(d); };
+    stat(`обновление репозитория (${ddmm(g.updated_at)})`, ago(g.updated_at));
+    stat('открытых PR', fmt(g.open_prs));
+    stat('открытых issues', g.open_issues == null ? '—' : fmt(g.open_issues));
+    stat('PR слито за 7 дней', fmt(g.merged));
+  });
+  const prList = (box, id, when) => {
+    box.replaceChildren();
+    const p = curProduct(); const rows = rowsOf(id); if (!p || !rows) return;
+    const repo = String(p.repo || '').replace('https://github.com/', '').toLowerCase();
+    const list = rows.filter((r) => r.repo === repo);
+    if (!list.length) { box.appendChild(el('p', 'note', 'Нет.')); return; }
+    list.slice(0, 12).forEach((r) => {
+      const it = el('article', 'aet-item'); it.style.setProperty('--k', productColor(p.product));
+      const meta = el('div', 'meta'); meta.append(el('span', '', `#${r.number}`), el('span', '', when(r)));
+      it.append(meta, aLink(r.title, r.url, 'ttl')); box.appendChild(it);
+    });
+    if (list.length > 12) box.appendChild(el('p', 'note', `и ещё ${fmt(list.length - 12)}`));
+  };
+  dash.draw('p-gh-open', (box) => prList(box, 'gh_open_prs', (r) => `${r.draft === 'да' ? 'черновик · ' : ''}обновлён ${ddmm(r.updated_at)}`));
+  dash.draw('p-gh-merged', (box) => prList(box, 'gh_merged', (r) => `слит ${ddmm(r.merged_at)}`));
 
   // ---------- Задания ----------
   dash.draw('h-group', (sel) => {
