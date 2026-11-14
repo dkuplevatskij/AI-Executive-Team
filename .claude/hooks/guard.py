@@ -301,8 +301,17 @@ def check_write(payload):
             deny(payload, "журнал только на дописывание: перезапись существующего файла запрещена", rel)
         if tool == "Edit":
             old, new = ti.get("old_string", ""), ti.get("new_string", "")
-            if not new.startswith(old) or ti.get("replace_all"):
-                deny(payload, "журнал только на дописывание: прежние записи не меняются", rel)
+            try:
+                with open(real, encoding="utf-8") as f:
+                    content = f.read()
+            except OSError:
+                content = ""
+            # Дописывание — это правка самого хвоста файла, где старый текст остаётся целиком.
+            # Иначе «D-001» → «D-001 изменено» прошло бы как дописывание, меняя прежнюю запись.
+            at_end = bool(old.strip()) and content.rstrip().endswith(old.rstrip())
+            if not new.startswith(old) or ti.get("replace_all") or not at_end:
+                deny(payload, "журнал только на дописывание: новые записи добавляются в конец, "
+                              "прежние не меняются", rel)
         if tool in ("MultiEdit", "NotebookEdit"):
             deny(payload, "журнал только на дописывание", rel)
 

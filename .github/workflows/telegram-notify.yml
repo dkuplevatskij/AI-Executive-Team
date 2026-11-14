@@ -1,0 +1,48 @@
+# Уведомления собственнику в Telegram о работе AI Executive Team.
+# Отправляет GitHub, а не агенты (агентам внешняя отправка запрещена замком).
+# Нужны секреты репозитория TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID; без них задание просто ничего не шлёт.
+name: Уведомления в Telegram
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "reports/**"
+      - "audit/**"
+      - "handoff/**"
+      - "approvals/**"
+      - "tasks/**"
+      - "company/decisions/**"
+  pull_request:
+    types: [opened, ready_for_review, closed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: telegram-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Отправить уведомление
+        run: python3 tools/notify_telegram.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DASHBOARD_URL: https://claude.ai/artifact/DU2nPFxCH2qJ59MWZJ6hkh
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          REF_NAME: ${{ github.ref_name }}
+          PR_ACTION: ${{ github.event.action }}
+          PR_MERGED: ${{ github.event.pull_request.merged }}
+          PR_DRAFT: ${{ github.event.pull_request.draft }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
