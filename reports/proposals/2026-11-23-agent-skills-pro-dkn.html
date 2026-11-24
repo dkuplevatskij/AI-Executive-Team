@@ -349,9 +349,13 @@ footer.doc-footer{margin-top:44px;padding-top:22px}
 
 <style>
 .grid.two{grid-template-columns:1fr}
+.kp-path{display:grid;grid-template-columns:1fr;gap:10px;margin:18px 0 6px}
+.kp-step{border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--ink-2);font-size:14.5px;line-height:1.45}
+.kp-step .kp-k{display:block;color:var(--gold-text);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+@media (min-width:760px){.kp-path{grid-template-columns:repeat(4,1fr)}}
 @media (min-width:760px){.grid.two .card.wide{grid-column:1/-1}.grid.two .card.wide ul{columns:2;column-gap:44px}.grid.two .card.wide li{break-inside:avoid}}
 @media (min-width:760px){.grid.two{grid-template-columns:1fr 1fr}}
-@media print{.grid.two{display:grid;grid-template-columns:1fr 1fr;gap:8pt}.grid.two .card{margin:0;padding:10pt 12pt;break-inside:avoid;page-break-inside:avoid}.grid.two .card.wide{grid-column:1/-1}.grid.two .card.wide ul{columns:2;column-gap:18pt}.grid.two .card.wide li{break-inside:avoid}.lead{font-size:11.5pt}th,td{padding:5.5pt 10pt}h2{margin:14pt 0 6pt}li{margin:2.5pt 0}ul{margin:4pt 0 8pt}.note{margin:9pt 0}footer.doc-footer{margin-top:10pt;padding-top:6pt}.gold-rule{margin-bottom:8pt}.footer-logo{width:20mm;margin-bottom:6pt}}
+@media print{table.mod{break-inside:avoid;page-break-inside:avoid}.kp-path{grid-template-columns:repeat(4,1fr);gap:6pt;margin:8pt 0 4pt}.kp-step{padding:7pt 8pt;font-size:8.5pt;break-inside:avoid}.kp-step .kp-k{font-size:7pt;margin-bottom:3pt}.grid.two{display:grid;grid-template-columns:1fr 1fr;gap:8pt}.grid.two .card{margin:0;padding:8pt 11pt;break-inside:avoid;page-break-inside:avoid}.grid.two .card.wide{grid-column:1/-1}.grid.two .card.wide ul{columns:2;column-gap:18pt}.grid.two .card.wide li{break-inside:avoid}.lead{font-size:11.5pt}th,td{padding:4.5pt 10pt}h2{margin:12pt 0 5pt}li{margin:2pt 0}ul{margin:3pt 0 6pt}.note{margin:9pt 0}footer.doc-footer{margin-top:10pt;padding-top:6pt}.gold-rule{margin-bottom:8pt}.footer-logo{width:20mm;margin-bottom:6pt}}
 table.opt thead th:nth-child(1){width:26%} table.opt thead th:nth-child(2){width:37%} table.opt thead th:nth-child(3){width:37%}
 table.mod thead th:nth-child(1){width:62%} table.mod thead th:nth-child(2){width:38%}
 td.stage{color:var(--ink);font-weight:500}
@@ -378,11 +382,17 @@ td.stage{color:var(--ink);font-weight:500}
 
 <h2><span class="n">01</span>Что это</h2>
 <p class="lead">Agent Skills Pro — онлайн-платформа, на которой брокеры с помощью ИИ обучаются, тренируются, проходят тесты и сдают экзамены.</p>
-<p>Руководство видит результаты и уровень каждого брокера и управляет процессом: назначает обучение и экзамены, следит за прогрессом.</p>
+<p>Курсы, тренировки и экзамены связаны: навыки, полученные на курсе, брокер отрабатывает на тренировках и подтверждает на экзамене. Руководство видит результаты и уровень каждого брокера и управляет процессом: назначает обучение и экзамены, следит за прогрессом.</p>
+<div class="kp-path">
+  <div class="kp-step"><span class="kp-k">1 · Курс</span>Изучает технику: работа с возражениями или СПИН</div>
+  <div class="kp-step"><span class="kp-k">2 · Тренировка</span>Отрабатывает её в диалоге с ИИ-клиентом</div>
+  <div class="kp-step"><span class="kp-k">3 · Экзамен</span>Подтверждает знания и навык</div>
+  <div class="kp-step"><span class="kp-k">4 · Контроль</span>Руководитель видит результат и уровень</div>
+</div>
 <div class="note">Департамент получает закрытое пространство: доступ есть только у ваших сотрудников, данные отделены от других организаций. Платформа настроена на коммерческую недвижимость: торговую, офисную и индустриальную.</div>
 
 <h2><span class="n">02</span>Обучение: два курса</h2>
-<p>Курс назначает руководитель — брокеру или отделу. Оба курса устроены одинаково: теория, упражнения, практика с ИИ-клиентом, итоговый тест.</p>
+<p>Курсы — основа платформы: техники из курсов брокер затем отрабатывает на тренировках и сдаёт на экзаменах. Курс назначает руководитель — брокеру или отделу. Оба курса устроены одинаково: теория, упражнения, практика с ИИ-клиентом, итоговый тест.</p>
 <div class="grid two">
   <div class="card">
     <h3>Курс «Работа с возражениями»</h3>
@@ -405,27 +415,28 @@ td.stage{color:var(--ink);font-weight:500}
     </ul>
   </div>
 </div>
+<div class="note">Курсы не закреплены раз и навсегда: содержание можно обновлять и изменять, новые курсы — добавлять под задачи департамента.</div>
 
 <h2><span class="n">03</span>Тренировки, экзамены, контроль</h2>
 <div class="grid two">
   <div class="card">
     <h3>Тренировки</h3>
     <ul>
+      <li><b>Тренировки формируют и оценивают навык ведения диалога по техникам курсов</b> — работы с возражениями и СПИН.</li>
       <li>Диалог с ИИ-клиентом в чате. Клиент каждый раз новый: со своим бюджетом, возражениями и скрытыми мотивами.</li>
-      <li>Пять типов: свободная тренировка, холодный звонок, работа с возражениями, презентация объекта, переговоры с продавцом.</li>
-      <li>Пять уровней сложности — от сговорчивого клиента до жёсткого.</li>
-      <li>Разбор после тренировки: оценка по критериям и по достижению цели, с цитатами из диалога.</li>
+      <li>Разбор после тренировки — по технике курса: шаги работы с возражением или типы СПИН-вопросов, с цитатами из диалога и оценкой достижения цели.</li>
+      <li>Пять типов: свободная тренировка, холодный звонок, работа с возражениями, презентация объекта, переговоры с продавцом. Пять уровней сложности.</li>
       <li>Брокер сначала оценивает себя сам, затем видит оценку системы.</li>
     </ul>
   </div>
   <div class="card">
     <h3>Тесты и экзамены</h3>
     <ul>
+      <li><b>Экзамен проверяет знания и навыки, полученные на курсах:</b> вопросы по материалу, ситуационные задачи и открытые ответы по техникам курса.</li>
       <li>Банк вопросов: с выбором ответа, ситуационные, с открытым ответом.</li>
       <li>Экзамен по назначению руководителя, с таймером.</li>
       <li>Открытые ответы проверяет ИИ по критериям. Руководитель может исправить балл с комментарием.</li>
-      <li>Сертификат в PDF после сдачи.</li>
-      <li>Свои вопросы загружаются из файла; черновики вопросов готовит ИИ.</li>
+      <li>Сертификат в PDF после сдачи. Свои вопросы загружаются из файла; черновики готовит ИИ.</li>
     </ul>
   </div>
   <div class="card wide">
@@ -444,14 +455,15 @@ td.stage{color:var(--ink);font-weight:500}
 <table class="mod">
   <thead><tr><th>Модуль</th><th>Когда</th></tr></thead>
   <tbody>
-    <tr><td class="stage">Тренировки с ИИ-клиентом, кабинет руководителя</td><td data-l="Когда">в составе запуска</td></tr>
-    <tr><td class="stage">Тесты, экзамены, сертификаты</td><td data-l="Когда">в составе запуска</td></tr>
-    <tr><td class="stage">Курс «Работа с возражениями»</td><td data-l="Когда"><span class="ph">[срок]</span></td></tr>
-    <tr><td class="stage">Курс «СПИН-продажи»</td><td data-l="Когда">после курса по возражениям, <span class="ph">[срок]</span></td></tr>
+    <tr><td class="stage">Тренировки с ИИ-клиентом, кабинет руководителя</td><td data-l="Когда">при запуске</td></tr>
+    <tr><td class="stage">Тесты, экзамены, сертификаты</td><td data-l="Когда">при запуске</td></tr>
+    <tr><td class="stage">Курс «Работа с возражениями»</td><td data-l="Когда">в течение 14 дней</td></tr>
+    <tr><td class="stage">Курс «СПИН-продажи»</td><td data-l="Когда">в течение 14 дней</td></tr>
+    <tr><td class="stage">Обновление курсов и новые курсы</td><td data-l="Когда">по запросу департамента</td></tr>
     <tr><td class="stage">Отчёты по команде, голосовые звонки</td><td data-l="Когда">в плане развития</td></tr>
   </tbody>
 </table>
-<p class="small" style="margin-top:10px">Дата запуска для департамента: <span class="ph">[согласуется]</span>.</p>
+<p class="small" style="margin-top:10px">Запуск для департамента — в течение 14 дней. Сроки считаются с даты оплаты счёта.</p>
 
 <section>
 <h2 class="pb"><span class="n">05</span>Условия на выбор</h2>
@@ -464,19 +476,19 @@ td.stage{color:var(--ink);font-weight:500}
     <tr><td class="stage">Настройка под департамент</td><td data-l="Вариант 1. Платформа под ключ">входит в разовый платёж</td><td data-l="Вариант 2. Подписка">входит в подписку</td></tr>
     <tr><td class="stage">Курсы по возражениям и СПИН</td><td data-l="Вариант 1. Платформа под ключ">входят</td><td data-l="Вариант 2. Подписка">входят</td></tr>
     <tr><td class="stage">Другие новые модули</td><td data-l="Вариант 1. Платформа под ключ">по отдельной смете</td><td data-l="Вариант 2. Подписка">входят в подписку</td></tr>
-    <tr><td class="stage">Минимальный срок</td><td data-l="Вариант 1. Платформа под ключ">нет</td><td data-l="Вариант 2. Подписка"><span class="ph">[3 месяца]</span></td></tr>
+    <tr><td class="stage">Минимальный срок</td><td data-l="Вариант 1. Платформа под ключ">нет</td><td data-l="Вариант 2. Подписка">нет</td></tr>
   </tbody>
 </table>
 
-<p style="margin-top:22px">Пример для 50 брокеров — число уточняется:</p>
+<p style="margin-top:22px">Расчёт для 40 брокеров:</p>
 <table class="opt">
   <thead><tr><th></th><th>Вариант 1</th><th>Вариант 2</th></tr></thead>
   <tbody>
-    <tr><td class="stage">В месяц</td><td data-l="Вариант 1">27 500 ₽</td><td data-l="Вариант 2">50 000 ₽</td></tr>
-    <tr><td class="stage">Каждый следующий год</td><td data-l="Вариант 1">330 000 ₽</td><td data-l="Вариант 2">600 000 ₽</td></tr>
+    <tr><td class="stage">В месяц</td><td data-l="Вариант 1">22 000 ₽</td><td data-l="Вариант 2">40 000 ₽</td></tr>
+    <tr><td class="stage">Каждый следующий год</td><td data-l="Вариант 1">264 000 ₽</td><td data-l="Вариант 2">480 000 ₽</td></tr>
   </tbody>
   <tbody class="totals">
-    <tr class="total"><td class="stage">Первый год</td><td class="spec" data-l="Вариант 1">430 000 ₽</td><td class="spec" data-l="Вариант 2">600 000 ₽</td></tr>
+    <tr class="total"><td class="stage">Первый год</td><td class="spec" data-l="Вариант 1">364 000 ₽</td><td class="spec" data-l="Вариант 2">480 000 ₽</td></tr>
   </tbody>
 </table>
 </section>
@@ -488,10 +500,9 @@ td.stage{color:var(--ink);font-weight:500}
   <li>В цену входит 30 тренировок на брокера в месяц. Тренировки сверх этого оплачиваются по фактическому расходу на ИИ.</li>
   <li>Данные хранятся на сервере в России. Модель ИИ согласуем с вами до запуска; обработку персональных данных оформляем договором и поручением.</li>
   <li>Оплата по счёту.</li>
-  <li>Предложение действует до <span class="ph">[дата]</span>.</li>
 </ul>
 
-<div class="note keep"><b>Следующий шаг:</b> выбрать вариант условий, подтвердить число брокеров и согласовать дату запуска.</div>
+<div class="note keep"><b>Следующий шаг:</b> выбрать вариант условий и подтвердить число брокеров.</div>
 
 <footer class="doc-footer">
   <div class="gold-rule"></div>
